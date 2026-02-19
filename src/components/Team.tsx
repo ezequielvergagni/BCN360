@@ -11,25 +11,25 @@ const team = [
   {
     name: "André Bartilotti",
     role: "Partner & Strategy",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/65cdf45ad396a07d7711d6a6_Speaker%20Journey%20-%201%20%E2%80%93%20105.webp",
     linkedin: "https://www.linkedin.com/in/abartilotti/"
   },
   {
     name: "Ezequiel Vergagni",
     role: "Partner & Operations",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/687429690b50cc9feb0ccd85_WhatsApp%20Image%202025-07-10%20at%2018.16.52%20(2).jpeg",
     linkedin: "https://www.linkedin.com/in/ezequielvergagni/"
   },
   {
     name: "Vady Guerra",
     role: "Innovation Lead",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/672bcacbf949407ed857d698_Imagen%20Vady%20Guerra%20BN%20Alta%20Definicion.jpg",
     linkedin: "https://www.linkedin.com/in/vadyguerra/"
   },
   {
     name: "Jorge Farías Campo",
     role: "Ecosystem Builder",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6616debce4242d7a62466bc9_WhatsApp%20Image%202024-04-10%20at%2008.17.56.jpeg",
     linkedin: "https://www.linkedin.com/in/jorgefariascampos/"
   }
 ];
