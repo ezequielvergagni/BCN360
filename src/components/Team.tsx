@@ -5,7 +5,7 @@ const team = [
   {
     name: "Leo Gimenez",
     role: "Co-Founder & Director",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/65c4cf412f4b9d4b16a59e7c_Speaker%20Journey%20-%201%20%E2%80%93%20101.webp",
     linkedin: "https://www.linkedin.com/in/soyleogimenez/"
   },
   {
