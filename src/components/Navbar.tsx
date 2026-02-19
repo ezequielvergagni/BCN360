@@ -13,10 +13,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            {/* Logo placeholder - replace with actual logo if available */}
-            <span className="font-bold text-2xl text-gray-800 tracking-tight">
-              BCN<span className="text-blue-600">360</span>
-            </span>
+            <img 
+              src="https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6598266776fbfaccd3d3ae9d_bcn360_learning_experiece_blue.svg" 
+              alt="BCN360 Experience" 
+              className="h-10 w-auto"
+            />
           </div>
           
           {/* Desktop Menu */}
