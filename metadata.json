@@ -1,5 +1,5 @@
 {
-  "name": "BCN360 Experience Clone",
-  "description": "Clon de la web bcn360experience.com",
+  "name": "BCN360 Experience & Blog",
+  "description": "Clon de la web bcn360experience.com con una sección de blog integrada para noticias y tecnología 360.",
   "requestFramePermissions": []
 }
