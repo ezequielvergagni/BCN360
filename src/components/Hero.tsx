@@ -14,15 +14,43 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
       </div>
 
+      {/* Trencadís Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div 
+          animate={{ 
+            rotate: [0, 10, 0],
+            y: [0, 20, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-64 h-64 bg-trencadis-blue/20 organic-shape blur-3xl"
+        />
+        <motion.div 
+          animate={{ 
+            rotate: [0, -15, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-1/4 -right-20 w-80 h-80 bg-trencadis-yellow/20 organic-shape blur-3xl"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1],
+            x: [0, 20, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute -bottom-20 left-1/3 w-96 h-96 bg-trencadis-orange/10 organic-shape blur-3xl"
+        />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight"
+          className="text-4xl md:text-7xl font-display font-bold text-white tracking-tight mb-6 leading-tight"
         >
-          Un programa de innovación que te conecta con el ecosistema de <span className="text-blue-400">Barcelona</span>
+          Un programa de innovación que te conecta con el ecosistema de <span className="text-trencadis-blue">Barcelona</span>
         </motion.h1>
         
         <motion.p 
@@ -38,11 +66,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center gap-4"
+          className="flex flex-col sm:flex-row justify-center gap-4"
         >
           <a 
             href="#contacto" 
-            className="px-8 py-4 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-blue-500/30"
+            className="px-8 py-4 bg-trencadis-blue text-white font-bold rounded-full hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-trencadis-blue/30"
           >
             Empieza tu viaje
           </a>

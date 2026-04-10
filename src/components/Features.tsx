@@ -57,15 +57,15 @@ const Features = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative p-8 bg-gray-50 rounded-2xl hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+              className="relative p-8 bg-white trencadis-border hover:shadow-2xl transition-all duration-300"
             >
               <div className="absolute top-0 left-0 -mt-6 ml-6">
-                <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-xl shadow-lg">
+                <div className="inline-flex items-center justify-center p-3 bg-trencadis-blue organic-shape shadow-lg">
                   <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
               </div>
-              <h3 className="mt-8 text-xl font-medium text-gray-900 tracking-tight">{feature.title}</h3>
-              <p className="mt-4 text-base text-gray-500 leading-relaxed">
+              <h3 className="mt-8 text-xl font-display font-bold text-gray-900 tracking-tight">{feature.title}</h3>
+              <p className="mt-4 text-base text-gray-600 leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

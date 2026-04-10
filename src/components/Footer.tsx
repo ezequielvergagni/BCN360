@@ -3,7 +3,17 @@ import { Mail, Phone, Linkedin, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer id="contacto" className="bg-gray-900 text-white">
+    <footer id="contacto" className="bg-gray-900 text-white relative overflow-hidden">
+      {/* Trencadís Accent Bar */}
+      <div className="h-2 w-full flex">
+        <div className="h-full flex-1 bg-trencadis-blue"></div>
+        <div className="h-full flex-1 bg-trencadis-yellow"></div>
+        <div className="h-full flex-1 bg-trencadis-orange"></div>
+        <div className="h-full flex-1 bg-trencadis-green"></div>
+        <div className="h-full flex-1 bg-trencadis-blue"></div>
+        <div className="h-full flex-1 bg-trencadis-yellow"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>

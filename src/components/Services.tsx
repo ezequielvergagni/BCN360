@@ -31,11 +31,11 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="servicios" className="py-24 bg-gray-50">
+    <section id="servicios" className="py-24 bg-trencadis">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Nuestros Servicios</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-base text-trencadis-blue font-semibold tracking-wide uppercase">Nuestros Servicios</h2>
+          <p className="mt-2 text-3xl leading-8 font-display font-bold tracking-tight text-gray-900 sm:text-4xl">
             Una propuesta flexible que se ajusta a diferentes propósitos
           </p>
         </div>
@@ -51,25 +51,25 @@ const Services = () => {
               className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12`}
             >
               <div className="w-full lg:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                <div className="relative organic-shape overflow-hidden shadow-2xl group border-4 border-white">
                   <img 
                     src={service.image} 
                     alt={service.title} 
                     className="w-full h-80 lg:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-blue-900/20 group-hover:bg-blue-900/10 transition-colors duration-300"></div>
+                  <div className="absolute inset-0 bg-trencadis-blue/20 group-hover:bg-trencadis-blue/10 transition-colors duration-300"></div>
                 </div>
               </div>
               
               <div className="w-full lg:w-1/2 space-y-6">
-                <h3 className="text-3xl font-bold text-gray-900">{service.title}</h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <h3 className="text-3xl font-display font-bold text-gray-900">{service.title}</h3>
+                <p className="text-lg text-gray-700 leading-relaxed">
                   {service.description}
                 </p>
-                <p className="text-base text-gray-500 italic border-l-4 border-blue-500 pl-4">
+                <p className="text-base text-gray-600 italic border-l-4 border-trencadis-yellow pl-4">
                   {service.details}
                 </p>
-                <button className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors group">
+                <button className="inline-flex items-center text-trencadis-blue font-semibold hover:text-blue-800 transition-colors group">
                   Saber más 
                   <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
