@@ -1,98 +1,176 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { ArrowRight, Compass, Sparkles, Zap, Building2, Globe2 } from 'lucide-react';
+import { AnimatedHeadingWords } from './AnimatedText';
 
 const Hero = () => {
   return (
-    <div className="relative bg-gray-900 h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+    <div className="relative bg-[#050D1A] min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+      {/* High-Tech Animated Ambient Grid */}
+      <div className="absolute inset-0 bg-tech-grid-dark opacity-30 pointer-events-none" />
+
+      {/* Background Image with Deep BCN Blue Overlay */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
           src="https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
           alt="Barcelona Innovation District"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-35 scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050D1A]/90 via-[#050D1A]/75 to-[#050D1A]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0052CC]/25 via-transparent to-[#00D2FF]/15" />
       </div>
 
-      {/* Trencadís Decorative Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Dynamic Animated Glowing Light Orbs in BCN Brand Blue */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div 
           animate={{ 
-            rotate: [0, 10, 0],
-            y: [0, 20, 0]
+            scale: [1, 1.25, 1],
+            x: [-30, 30, -30],
+            y: [-20, 20, -20]
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 -left-20 w-64 h-64 bg-trencadis-blue/20 organic-shape blur-3xl"
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#0052CC]/30 rounded-full blur-[130px]"
         />
         <motion.div 
           animate={{ 
-            rotate: [0, -15, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-1/4 -right-20 w-80 h-80 bg-trencadis-yellow/20 organic-shape blur-3xl"
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.1, 1],
-            x: [0, 20, 0]
+            scale: [1, 1.3, 1],
+            x: [40, -20, 40],
+            y: [30, -30, 30]
           }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-20 left-1/3 w-96 h-96 bg-trencadis-orange/10 organic-shape blur-3xl"
+          className="absolute top-1/3 -right-32 w-[550px] h-[550px] bg-[#00D2FF]/20 rounded-full blur-[140px]"
+        />
+        <motion.div 
+          animate={{ 
+            opacity: [0.3, 0.7, 0.3],
+            scale: [0.9, 1.1, 0.9]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#003399]/35 rounded-full blur-[160px]"
         />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-7xl font-display font-bold text-white tracking-tight mb-6 leading-tight"
-        >
-          Un programa de innovación que te conecta con el ecosistema de <span className="text-trencadis-blue">Barcelona</span>
-        </motion.h1>
+      {/* Floating Animated Futuristic Circuit Lines / Particles */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <motion.div
+          animate={{ y: [0, -400] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute left-[15%] bottom-0 w-1 h-32 bg-gradient-to-t from-transparent via-[#00D2FF] to-transparent"
+        />
+        <motion.div
+          animate={{ y: [0, -500] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "linear", delay: 4 }}
+          className="absolute right-[20%] bottom-0 w-1 h-40 bg-gradient-to-t from-transparent via-[#0052CC] to-transparent"
+        />
+      </div>
+
+      {/* Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         
+        {/* Animated Innovation Badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: -20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.6, type: "spring", stiffness: 120 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-[#0052CC]/40 text-blue-200 text-xs sm:text-sm font-semibold mb-8 shadow-lg shadow-blue-950/40"
+        >
+          <span className="flex h-2 w-2 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D2FF] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D2FF]"></span>
+          </span>
+          <Sparkles className="w-4 h-4 text-[#00D2FF]" />
+          <span>BCN360 EXPERIENCE • BARCELONA INNOVATION HUB</span>
+        </motion.div>
+
+        {/* Main Headline with Letter/Word Stagger Animation */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.12] max-w-5xl font-inter">
+          <AnimatedHeadingWords
+            text="Conectamos líderes de Latam con la innovación de Barcelona."
+            highlightText="Barcelona"
+            highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#3B82F6] to-[#0052CC] drop-shadow-[0_0_25px_rgba(0,130,255,0.4)] font-extrabold"
+            delay={0.1}
+          />
+        </h1>
+        
+        {/* Animated Subtitle */}
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-4 max-w-3xl mx-auto text-xl text-gray-300 mb-10"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-2 max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 mb-10 leading-relaxed font-normal"
         >
-          Descubre porqué el 22@ se convirtió en el mayor distrito de innovación del sur de Europa y una excelente plataforma al mundo para empresas de LATAM.
+          Descubre por qué el distrito <span className="text-white font-semibold underline decoration-[#00D2FF] decoration-2 underline-offset-4">22@ Barcelona</span> se convirtió en el mayor hub de innovación del sur de Europa y la plataforma idónea de internacionalización.
         </motion.p>
         
+        {/* CTA Buttons */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row justify-center gap-4"
+          transition={{ duration: 0.7, delay: 0.7 }}
+          className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto"
         >
-          <a 
+          <motion.a 
+            whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,82,204,0.6)" }}
+            whileTap={{ scale: 0.98 }}
             href="#contacto" 
-            className="px-8 py-4 bg-trencadis-blue text-white font-bold rounded-full hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-trencadis-blue/30"
+            className="w-full sm:w-auto px-8 py-4 bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold rounded-full transition-all shadow-xl shadow-[#0052CC]/30 flex items-center justify-center gap-2 group text-base"
           >
-            Empieza tu viaje
-          </a>
-          <a 
+            <span>Empieza tu viaje</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </motion.a>
+
+          <motion.a 
+            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
+            whileTap={{ scale: 0.98 }}
             href="#enfoque" 
-            className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold rounded-full hover:bg-white/20 transition-all transform hover:scale-105"
+            className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:border-[#00D2FF]/50 text-white font-bold rounded-full transition-all flex items-center justify-center gap-2 text-base"
           >
-            Saber más
-          </a>
+            <Compass className="w-5 h-5 text-[#00D2FF]" />
+            <span>Explorar Enfoque</span>
+          </motion.a>
         </motion.div>
+
+        {/* Floating High-Tech Mini Features Badge Grid */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 max-w-4xl w-full"
+        >
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
+            <Building2 className="w-5 h-5 text-[#00D2FF]" />
+            <span className="text-xs sm:text-sm font-semibold text-slate-200">Distrito 22@ Barcelona</span>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
+            <Globe2 className="w-5 h-5 text-[#00D2FF]" />
+            <span className="text-xs sm:text-sm font-semibold text-slate-200">Conexión Latam ↔ Europa</span>
+          </div>
+
+          <div className="col-span-2 md:col-span-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
+            <Zap className="w-5 h-5 text-[#00D2FF]" />
+            <span className="text-xs sm:text-sm font-semibold text-slate-200">Misiones de Inmersión</span>
+          </div>
+        </motion.div>
+
       </div>
       
-      {/* Scroll Indicator */}
+      {/* Scroll Down Bounce Arrow */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity"
       >
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
+        <span className="text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg className="w-5 h-5 text-[#00D2FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
       </motion.div>
     </div>
   );
