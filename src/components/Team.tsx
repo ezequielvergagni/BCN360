@@ -6,19 +6,19 @@ import { AnimatedHeadingWords } from './AnimatedText';
 const team = [
   {
     name: "Leo Gimenez",
-    role: "Co-Founder & Director",
+    role: "Partner Manager",
     image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/65c4cf412f4b9d4b16a59e7c_Speaker%20Journey%20-%201%20%E2%80%93%20101.webp",
     linkedin: "https://www.linkedin.com/in/soyleogimenez/"
   },
   {
     name: "André Bartilotti",
-    role: "Partner & Strategy",
+    role: "Innovation Manager",
     image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/65cdf45ad396a07d7711d6a6_Speaker%20Journey%20-%201%20%E2%80%93%20105.webp",
     linkedin: "https://www.linkedin.com/in/abartilotti/"
   },
   {
     name: "Ezequiel Vergagni",
-    role: "Partner & Operations",
+    role: "Project Manager",
     image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/687429690b50cc9feb0ccd85_WhatsApp%20Image%202025-07-10%20at%2018.16.52%20(2).jpeg",
     linkedin: "https://www.linkedin.com/in/ezequielvergagni/"
   },
