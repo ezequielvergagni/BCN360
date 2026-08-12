@@ -31,7 +31,7 @@ const team = [
   {
     name: "Jorge Farías Campo",
     role: "Ecosystem Builder",
-    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6616debce4242d7a62466bc9_WhatsApp%20Image%202024-04-10%20at%2008.17.56.jpeg",
+    image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6a7c3bae1107c4d28208c2c7_Perfil%20Jorge.jpeg",
     linkedin: "https://www.linkedin.com/in/jorgefariascampos/"
   }
 ];
