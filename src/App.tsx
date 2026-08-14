@@ -10,11 +10,18 @@ import Team from './components/Team';
 import Delegations from './components/Delegations';
 import BlogPreview from './components/blog/BlogPreview';
 import BlogList from './components/blog/BlogList';
-import BlogPost from './components/blog/BlogPost';
 import Footer from './components/Footer';
+import Seo from './components/Seo';
+
+const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
 
 const HomePage = () => (
   <main>
+    <Seo
+      title="Innovación Barcelona × Latam"
+      description="BCN360 conecta a líderes, empresas e instituciones de Latinoamérica con el ecosistema de innovación de Barcelona mediante experiencias a medida."
+      path="/"
+    />
     <Hero />
     <Features />
     <EcosystemPartners />
@@ -37,11 +44,14 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogList />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-      </Routes>
+      <React.Suspense fallback={<div className="min-h-screen bg-white" aria-label="Cargando contenido" />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/:slug" element={<BlogPost />} />
+        </Routes>
+      </React.Suspense>
       <Footer />
     </div>
   );

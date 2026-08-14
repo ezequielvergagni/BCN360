@@ -54,7 +54,7 @@ const BlogPreview: React.FC = () => {
               whileHover={{ y: -6 }}
               className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 hover:border-[#0052CC]/40 shadow-lg shadow-slate-100 hover:shadow-2xl hover:shadow-[#0052CC]/15 transition-all duration-300 group"
             >
-              <Link to={`/blog/${post.id}`}>
+              <Link to={post.path}>
                 <div className="h-52 overflow-hidden relative">
                   <img 
                     src={post.image} 

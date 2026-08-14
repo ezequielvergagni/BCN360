@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, User, ChevronRight, Sparkles } from 'lucide-react';
 import { BLOG_POSTS, CATEGORIES } from '../../constants';
 import { AnimatedHeadingWords } from '../AnimatedText';
+import Seo from '../Seo';
 
 const BlogList: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('Todos');
@@ -14,6 +15,11 @@ const BlogList: React.FC = () => {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen relative overflow-hidden">
+      <Seo
+        title="Blog de innovación y negocios Barcelona-Latam"
+        description="Guías, casos y estrategias para conectar empresas e instituciones de Latinoamérica con el ecosistema de innovación de Barcelona."
+        path="/blog"
+      />
       {/* Background Tech Grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-30 pointer-events-none" />
 
@@ -70,7 +76,7 @@ const BlogList: React.FC = () => {
               whileHover={{ y: -6 }}
               className="group bg-white border border-slate-200/80 rounded-3xl overflow-hidden hover:border-[#0052CC]/40 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300 flex flex-col justify-between"
             >
-              <Link to={`/blog/${post.id}`} className="flex flex-col h-full">
+              <Link to={post.path} className="flex flex-col h-full">
                 <div className="relative h-60 overflow-hidden">
                   <img
                     src={post.image}

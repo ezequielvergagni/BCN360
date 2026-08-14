@@ -1,13 +1,15 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import Markdown from 'react-markdown';
 import { Calendar, Clock, User, ArrowLeft, Share2, Sparkles, Send } from 'lucide-react';
 import { BLOG_POSTS } from '../../constants';
+import Seo, { SITE_URL } from '../Seo';
 
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const post = BLOG_POSTS.find(p => p.id === id);
+  const location = useLocation();
+  const post = BLOG_POSTS.find(p => p.id === id || p.path === location.pathname);
 
   if (!post) {
     return (
@@ -26,12 +28,72 @@ const BlogPost: React.FC = () => {
     );
   }
 
+  const canonicalUrl = new URL(post.path, SITE_URL).toString();
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.metaDescription,
+      image: [post.image],
+      datePublished: post.datePublished,
+      dateModified: post.dateModified,
+      inLanguage: 'es-ES',
+      mainEntityOfPage: canonicalUrl,
+      keywords: post.keywords.join(', '),
+      author: {
+        '@type': 'Organization',
+        name: 'BCN360 Experience',
+        url: SITE_URL,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BCN360 Experience',
+        url: SITE_URL,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Inicio',
+          item: SITE_URL,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog',
+          item: `${SITE_URL}/blog`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: post.title,
+          item: canonicalUrl,
+        },
+      ],
+    },
+  ];
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="bg-white pt-28 pb-20 relative overflow-hidden"
     >
+      <Seo
+        title={post.seoTitle}
+        description={post.metaDescription}
+        path={post.path}
+        image={post.image}
+        type="article"
+        publishedTime={post.datePublished}
+        modifiedTime={post.dateModified}
+        jsonLd={structuredData}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Link 
           to="/blog" 
@@ -84,6 +146,7 @@ const BlogPost: React.FC = () => {
               }}
               className="p-2.5 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-[#0052CC] transition-colors"
               title="Compartir artículo"
+              aria-label="Compartir artículo"
             >
               <Share2 size={18} />
             </button>
@@ -101,8 +164,18 @@ const BlogPost: React.FC = () => {
         </div>
 
         {/* Post Markdown Content */}
-        <div className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-[#0052CC] prose-strong:text-slate-900">
-          <Markdown>{post.content}</Markdown>
+        <div className="article-content">
+          <Markdown
+            components={{
+              a: ({ href, children, ...props }) => href?.startsWith('/') ? (
+                <Link to={href} {...props}>{children}</Link>
+              ) : (
+                <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>
+              ),
+            }}
+          >
+            {post.content}
+          </Markdown>
         </div>
 
         {/* Footer Newsletter / CTA */}
