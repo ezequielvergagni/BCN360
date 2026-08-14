@@ -6,7 +6,7 @@ import { AnimatedHeadingWords } from './AnimatedText';
 const services = [
   {
     tag: "PROGRAMA SECTORIAL",
-    title: "Sectoriales",
+    title: "Sectoriales BCN360",
     description: "Experimenta los avances de tu sector en una de las ciudades más innovadoras del mundo, a través de conectar con el Clúster catalán, conocer casos de éxito local y construir conexiones estratégicas con España.",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     details: "Una oportunidad para llevar tu especialización al siguiente nivel en el mayor hub de innovación del sur de Europa."
