@@ -22,14 +22,14 @@ const services = [
     tag: "INSTITUCIONAL & CLUSTERS",
     title: "Instituciones",
     description: "Explora el dinámico ecosistema catalán, descubre las últimas tendencias en innovación y aprende buenas prácticas aplicables a tu entorno empresarial.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/7653774/pexels-photo-7653774.jpeg?auto=compress&cs=tinysrgb&w=1200",
     details: "Crea vínculos estratégicos y sinergias al interactuar con líderes de las instituciones y actores sociales relevantes."
   },
   {
     tag: "POLÍTICAS PÚBLICAS & CIUDAD",
     title: "Gobierno",
     description: "Aprende del entramado socio-cultural barcelonés e identifica ideas y perspectivas que les permitan desarrollar políticas públicas adaptadas a las necesidades específicas de su propia jurisdicción.",
-    image: "https://images.pexels.com/photos/8847147/pexels-photo-8847147.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    image: "https://images.pexels.com/photos/4347459/pexels-photo-4347459.jpeg?auto=compress&cs=tinysrgb&w=1200",
     details: "Entendiendo cómo las políticas locales pueden influir en el fomento de la innovación y la colaboración público-privada."
   }
 ];
