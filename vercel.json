@@ -1,4 +1,7 @@
 {
+  "alias": [
+    "www.bcn360experience.com"
+  ],
   "rewrites": [
     {
       "source": "/ecosistema-innovacion-barcelona-guia-latam",
