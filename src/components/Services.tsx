@@ -122,7 +122,7 @@ const Services = () => {
                     href="#contacto" 
                     className="inline-flex items-center gap-2 text-[#0052CC] font-bold hover:text-[#00388A] transition-colors group text-base"
                   >
-                    <span>Solicitar programa personalizado</span>
+                    <span>Solicitar programa a medida</span>
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform" />
                   </motion.a>
                 </div>
