@@ -3,22 +3,25 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
+import EcosystemPartners from './components/EcosystemPartners';
 import Services from './components/Services';
 import Ecosystem from './components/Ecosystem';
 import Team from './components/Team';
-import Footer from './components/Footer';
+import Delegations from './components/Delegations';
+import BlogPreview from './components/blog/BlogPreview';
 import BlogList from './components/blog/BlogList';
 import BlogPost from './components/blog/BlogPost';
-
-import BlogPreview from './components/blog/BlogPreview';
+import Footer from './components/Footer';
 
 const HomePage = () => (
   <main>
     <Hero />
     <Features />
+    <EcosystemPartners />
     <Services />
     <Ecosystem />
     <Team />
+    <Delegations />
     <BlogPreview />
   </main>
 );

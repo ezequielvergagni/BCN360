@@ -29,7 +29,7 @@ const team = [
     linkedin: "https://www.linkedin.com/in/vadyguerra/"
   },
   {
-    name: "Jorge Farías Campos",
+    name: "Jorge Farías Campo",
     role: "Ecosystem Builder",
     image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6a7c3bae1107c4d28208c2c7_Perfil%20Jorge.jpeg",
     linkedin: "https://www.linkedin.com/in/jorgefariascampos/"
@@ -85,11 +85,7 @@ const Team = () => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className={`w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out ${
-                    member.name === "Jorge Farías Campos"
-                      ? "object-[center_18%] scale-[1.02]"
-                      : "object-center"
-                  }`}
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500 ease-out"
                 />
                 
                 {/* Overlay on hover */}

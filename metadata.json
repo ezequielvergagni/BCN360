@@ -1,5 +1,8 @@
 {
-  "name": "BCN360 Experience & Blog",
-  "description": "Clon de la web bcn360experience.com con una sección de blog integrada para noticias y tecnología 360.",
-  "requestFramePermissions": []
+  "name": "BCN360 Experience",
+  "description": "BCN360 Experience conecta a líderes y emprendedores de Latinoamérica con el ecosistema de innovación de Barcelona a través de experiencias inmersivas a medida.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
