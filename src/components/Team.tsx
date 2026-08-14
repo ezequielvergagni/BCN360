@@ -87,7 +87,7 @@ const Team = () => {
                   alt={member.name}
                   className={`w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out ${
                     member.name === "Jorge Farías Campos"
-                      ? "object-[center_12%] scale-[1.12]"
+                      ? "object-[center_18%] scale-[1.02]"
                       : "object-center"
                   }`}
                 />
