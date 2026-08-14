@@ -85,9 +85,7 @@ const Team = () => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className={`w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out ${
-                    member.name === "Jorge Farías Campo" ? "object-[center_20%]" : "object-center"
-                  }`}
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500 ease-out"
                 />
                 
                 {/* Overlay on hover */}
