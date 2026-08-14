@@ -29,7 +29,7 @@ const team = [
     linkedin: "https://www.linkedin.com/in/vadyguerra/"
   },
   {
-    name: "Jorge Farías Campo",
+    name: "Jorge Farías Campos",
     role: "Ecosystem Builder",
     image: "https://cdn.prod.website-files.com/6596be80cb5d98bf1d75f148/6a7c3bae1107c4d28208c2c7_Perfil%20Jorge.jpeg",
     linkedin: "https://www.linkedin.com/in/jorgefariascampos/"
