@@ -29,7 +29,7 @@ const services = [
     tag: "POLÍTICAS PÚBLICAS & CIUDAD",
     title: "Gobierno",
     description: "Aprende del entramado socio-cultural barcelonés e identifica ideas y perspectivas que les permitan desarrollar políticas públicas adaptadas a las necesidades específicas de su propia jurisdicción.",
-    image: "https://images.unsplash.com/photo-1541872703-74c5963631df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.pexels.com/photos/8847147/pexels-photo-8847147.jpeg?auto=compress&cs=tinysrgb&w=1200",
     details: "Entendiendo cómo las políticas locales pueden influir en el fomento de la innovación y la colaboración público-privada."
   }
 ];
