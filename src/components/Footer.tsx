@@ -48,7 +48,7 @@ const Footer = () => {
               </a>
               
               <a 
-                href="tel:+34611182088" 
+                href="tel:+34610691957" 
                 className="flex items-center gap-4 text-slate-300 hover:text-white transition-all group p-3 rounded-2xl hover:bg-white/5 border border-transparent hover:border-white/10"
               >
                 <div className="p-3.5 bg-[#0052CC]/20 border border-[#0052CC]/40 rounded-2xl text-[#00D2FF] group-hover:bg-[#0052CC] group-hover:text-white transition-all shadow-md">
@@ -56,7 +56,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Atención Telefónica</div>
-                  <div className="text-base sm:text-lg font-semibold">+34 611 182 088</div>
+                  <div className="text-base sm:text-lg font-semibold">+34 610 691 957</div>
                 </div>
               </a>
 
