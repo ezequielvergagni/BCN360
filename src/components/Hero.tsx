@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Compass, Sparkles, Zap, Building2, Globe2 } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
 import { AnimatedHeadingWords } from './AnimatedText';
 
 const Hero = () => {
@@ -67,23 +67,8 @@ const Hero = () => {
       {/* Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         
-        {/* Animated Innovation Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 120 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-[#0052CC]/40 text-blue-200 text-xs sm:text-sm font-semibold mb-8 shadow-lg shadow-blue-950/40"
-        >
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D2FF] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D2FF]"></span>
-          </span>
-          <Sparkles className="w-4 h-4 text-[#00D2FF]" />
-          <span>BCN360 EXPERIENCE • BARCELONA INNOVATION HUB</span>
-        </motion.div>
-
         {/* Main Headline with Letter/Word Stagger Animation */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.12] max-w-5xl font-inter">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-10 leading-[1.12] max-w-5xl font-inter">
           <AnimatedHeadingWords
             text="Conectamos líderes de Latam con la innovación de Barcelona."
             highlightText="Barcelona"
@@ -92,21 +77,11 @@ const Hero = () => {
           />
         </h1>
         
-        {/* Animated Subtitle */}
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-2 max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 mb-10 leading-relaxed font-normal"
-        >
-          Descubre por qué el distrito <span className="text-white font-semibold underline decoration-[#00D2FF] decoration-2 underline-offset-4">22@ Barcelona</span> se convirtió en el mayor hub de innovación del sur de Europa y la plataforma idónea de internacionalización.
-        </motion.p>
-        
         {/* CTA Buttons */}
         <motion.div 
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.7 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
           className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto"
         >
           <motion.a 
@@ -130,36 +105,13 @@ const Hero = () => {
           </motion.a>
         </motion.div>
 
-        {/* Floating High-Tech Mini Features Badge Grid */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 max-w-4xl w-full"
-        >
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
-            <Building2 className="w-5 h-5 text-[#00D2FF]" />
-            <span className="text-xs sm:text-sm font-semibold text-slate-200">Distrito 22@ Barcelona</span>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
-            <Globe2 className="w-5 h-5 text-[#00D2FF]" />
-            <span className="text-xs sm:text-sm font-semibold text-slate-200">Conexión Latam ↔ Europa</span>
-          </div>
-
-          <div className="col-span-2 md:col-span-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 flex items-center justify-center gap-3 hover:border-[#0052CC]/50 transition-all hover:bg-white/10">
-            <Zap className="w-5 h-5 text-[#00D2FF]" />
-            <span className="text-xs sm:text-sm font-semibold text-slate-200">Misiones de Inmersión</span>
-          </div>
-        </motion.div>
-
       </div>
       
       {/* Scroll Down Bounce Arrow */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
+        transition={{ delay: 1.0, duration: 1 }}
         className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity"
       >
         <span className="text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Scroll</span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, Building, Rocket, Cpu, Landmark } from 'lucide-react';
+import { Building, Rocket, Cpu, Landmark } from 'lucide-react';
 import { AnimatedHeadingWords, AnimatedCounter } from './AnimatedText';
 
 const Ecosystem = () => {
@@ -24,16 +24,6 @@ const Ecosystem = () => {
         
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#00D2FF]" />
-            <span>Métricas del Hub Barcelona</span>
-          </motion.div>
-
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
             <AnimatedHeadingWords
               text="Un ecosistema en constante expansión"

@@ -83,19 +83,13 @@ const EcosystemPartners: React.FC = () => {
           className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-sm"
         >
           {/* Top meta bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#0052CC]/10 flex items-center justify-center text-[#0052CC]">
-                <Award className="w-4 h-4" />
-              </div>
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-700">
-                16 Empresas, Instituciones y Fondos Aliados
-              </span>
+          <div className="flex items-center justify-center gap-2.5 mb-6 pb-4 border-b border-slate-100">
+            <div className="w-8 h-8 rounded-lg bg-[#0052CC]/10 flex items-center justify-center text-[#0052CC]">
+              <Award className="w-4 h-4" />
             </div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Acceso directo garantizado en nuestras inmersiones
-            </div>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-700">
+              16 Empresas, Instituciones y Fondos Aliados
+            </span>
           </div>
 
           {/* Quick Filter Pill Buttons */}
