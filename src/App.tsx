@@ -14,6 +14,7 @@ import BlogPreview from './components/blog/BlogPreview';
 import BlogList from './components/blog/BlogList';
 import FinalCta from './components/FinalCta';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 import Seo from './components/Seo';
 
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -80,6 +81,7 @@ function AppContent() {
         </Routes>
       </React.Suspense>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }
