@@ -8,28 +8,28 @@ const services = [
     tag: "PROGRAMA SECTORIAL",
     title: "Sectoriales",
     description: "Experimenta los avances de tu sector en una de las ciudades más innovadoras del mundo, a través de conectar con el Clúster catalán, conocer casos de éxito local y construir conexiones estratégicas con España.",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     details: "Una oportunidad para llevar tu especialización al siguiente nivel en el mayor hub de innovación del sur de Europa."
   },
   {
     tag: "PROGRAMA EXECUTIVE",
     title: "Ejecutivos",
     description: "Un viaje de inspiración exclusiva para altos ejecutivos y dueños de empresas, donde explorar oportunidades de negocio, conocer empresarios locales en espacios de networking e identificar potenciales partners.",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     details: "Identifica potenciales partners en uno de los ecosistemas de innovación más potentes de Europa."
   },
   {
     tag: "INSTITUCIONAL & CLUSTERS",
     title: "Instituciones",
     description: "Explora el dinámico ecosistema catalán, descubre las últimas tendencias en innovación y aprende buenas prácticas aplicables a tu entorno empresarial.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     details: "Crea vínculos estratégicos y sinergias al interactuar con líderes de las instituciones y actores sociales relevantes."
   },
   {
     tag: "POLÍTICAS PÚBLICAS & CIUDAD",
     title: "Gobierno",
     description: "Aprende del entramado socio-cultural barcelonés e identifica ideas y perspectivas que les permitan desarrollar políticas públicas adaptadas a las necesidades específicas de su propia jurisdicción.",
-    image: "https://images.unsplash.com/photo-1541872703-74c5963631df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     details: "Entendiendo cómo las políticas locales pueden influir en el fomento de la innovación y la colaboración público-privada."
   }
 ];
@@ -83,6 +83,8 @@ const Services = () => {
                   <img 
                     src={service.image} 
                     alt={service.title} 
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
                     className="w-full h-80 lg:h-[400px] object-cover transform group-hover:scale-108 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050D1A]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />

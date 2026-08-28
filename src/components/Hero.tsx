@@ -1,131 +1,120 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Compass } from 'lucide-react';
-import { AnimatedHeadingWords } from './AnimatedText';
+import { BookingModal } from './BookingModal';
+import { ProposalModal } from './ProposalModal';
 
-const Hero = () => {
+const Hero: React.FC = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState<boolean>(false);
+  const [isProposalOpen, setIsProposalOpen] = useState<boolean>(false);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="relative bg-[#050D1A] min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
-      {/* High-Tech Animated Ambient Grid */}
-      <div className="absolute inset-0 bg-tech-grid-dark opacity-30 pointer-events-none" />
-
-      {/* Background Image with Deep BCN Blue Overlay */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <img
-          src="https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-          alt="Barcelona Innovation District"
-          className="w-full h-full object-cover opacity-35 scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050D1A]/90 via-[#050D1A]/75 to-[#050D1A]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0052CC]/25 via-transparent to-[#00D2FF]/15" />
-      </div>
-
-      {/* Dynamic Animated Glowing Light Orbs in BCN Brand Blue */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.25, 1],
-            x: [-30, 30, -30],
-            y: [-20, 20, -20]
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#0052CC]/30 rounded-full blur-[130px]"
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.3, 1],
-            x: [40, -20, 40],
-            y: [30, -30, 30]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute top-1/3 -right-32 w-[550px] h-[550px] bg-[#00D2FF]/20 rounded-full blur-[140px]"
-        />
-        <motion.div 
-          animate={{ 
-            opacity: [0.3, 0.7, 0.3],
-            scale: [0.9, 1.1, 0.9]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-[#003399]/35 rounded-full blur-[160px]"
-        />
-      </div>
-
-      {/* Floating Animated Futuristic Circuit Lines / Particles */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-        <motion.div
-          animate={{ y: [0, -400] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute left-[15%] bottom-0 w-1 h-32 bg-gradient-to-t from-transparent via-[#00D2FF] to-transparent"
-        />
-        <motion.div
-          animate={{ y: [0, -500] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "linear", delay: 4 }}
-          className="absolute right-[20%] bottom-0 w-1 h-40 bg-gradient-to-t from-transparent via-[#0052CC] to-transparent"
-        />
-      </div>
-
-      {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+    <>
+      <section className="relative w-full min-h-screen flex flex-col justify-between items-center bg-[#050C1A] text-white overflow-hidden select-none">
         
-        {/* Main Headline with Letter/Word Stagger Animation */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-10 leading-[1.12] max-w-5xl font-inter">
-          <AnimatedHeadingWords
-            text="Conectamos líderes de Latam con la innovación de Barcelona."
-            highlightText="Barcelona"
-            highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#3B82F6] to-[#0052CC] drop-shadow-[0_0_25px_rgba(0,130,255,0.4)] font-extrabold"
-            delay={0.1}
+        {/* Background Aerial Barcelona Image with Cinematic Deep Dark Blue Atmosphere */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=2560&q=85"
+            alt="Vista aérea de Barcelona y la Sagrada Família"
+            className="w-full h-full object-cover object-center brightness-[0.70] contrast-[1.10]"
           />
-        </h1>
-        
-        {/* CTA Buttons */}
-        <motion.div 
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto"
-        >
-          <motion.a 
-            whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,82,204,0.6)" }}
-            whileTap={{ scale: 0.98 }}
-            href="#contacto" 
-            className="w-full sm:w-auto px-8 py-4 bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold rounded-full transition-all shadow-xl shadow-[#0052CC]/30 flex items-center justify-center gap-2 group text-base"
-          >
-            <span>Empieza tu viaje</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+          {/* Deep Navy/Blue Subtle Gradient Overlays to keep text legible while showing the city */}
+          <div className="absolute inset-0 bg-[#061126]/50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050C1A]/75 via-[#06132D]/35 to-[#050C1A]/90" />
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#050C1A]/20 to-[#050C1A]/80" />
+          {/* Ambient Radial Glows */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#0052CC]/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[350px] bg-[#00D2FF]/15 rounded-full blur-[100px] pointer-events-none" />
+        </div>
 
-          <motion.a 
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
-            whileTap={{ scale: 0.98 }}
-            href="#enfoque" 
-            className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:border-[#00D2FF]/50 text-white font-bold rounded-full transition-all flex items-center justify-center gap-2 text-base"
-          >
-            <Compass className="w-5 h-5 text-[#00D2FF]" />
-            <span>Explorar Enfoque</span>
-          </motion.a>
-        </motion.div>
+        {/* Decorative Subtle Lateral Accent Lines (as seen in screenshot) */}
+        <div className="absolute left-10 md:left-24 top-1/2 -translate-y-1/2 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#00D2FF]/40 to-transparent pointer-events-none hidden lg:block" />
+        <div className="absolute right-10 md:right-24 bottom-1/4 w-[1px] h-36 bg-gradient-to-b from-transparent via-[#00D2FF]/30 to-transparent pointer-events-none hidden lg:block" />
 
-      </div>
-      
-      {/* Scroll Down Bounce Arrow */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.0, duration: 1 }}
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity"
-      >
-        <span className="text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <svg className="w-5 h-5 text-[#00D2FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </motion.div>
-      </motion.div>
-    </div>
+        {/* Top spacer for navbar */}
+        <div className="w-full h-24 sm:h-28" />
+
+        {/* Main Content Centered */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center my-auto py-10">
+          
+          {/* Main Headline with refined, slightly smaller typography */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-5xl md:text-[3.5rem] lg:text-[4.15rem] font-extrabold text-white tracking-tight leading-[1.16] max-w-3xl mx-auto drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+          >
+            Conectamos líderes de<br className="hidden sm:inline" />{' '}
+            Latam con la innovación de<br className="hidden sm:inline" />{' '}
+            <span className="text-[#00D2FF] drop-shadow-[0_0_25px_rgba(0,210,255,0.5)]">
+              Barcelona.
+            </span>
+          </motion.h1>
+
+          {/* Action Buttons exact to screenshot */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mt-10 sm:mt-12 w-full sm:w-auto"
+          >
+            {/* Primary Blue Button: "Empieza tu viaje ->" */}
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 0 35px rgba(0,102,255,0.6)' }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setIsBookingOpen(true)}
+              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#0055D4] hover:bg-[#0062EA] text-white font-bold rounded-full transition-all shadow-[0_8px_25px_rgba(0,85,212,0.45)] flex items-center justify-center gap-2.5 text-base sm:text-lg group border border-blue-400/20"
+            >
+              <span>Empieza tu viaje</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+
+            {/* Secondary Dark/Translucent Button: "Explorar Enfoque" with Compass icon */}
+            <motion.button
+              whileHover={{ scale: 1.04, backgroundColor: 'rgba(30, 41, 59, 0.85)', borderColor: 'rgba(0, 210, 255, 0.5)' }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => scrollToSection('segmentacion')}
+              className="w-full sm:w-auto px-7 py-3.5 sm:py-4 bg-[#182338]/80 hover:bg-[#1E2B45] text-white font-medium rounded-full transition-all border border-slate-700/80 backdrop-blur-md flex items-center justify-center gap-2.5 text-base sm:text-lg"
+            >
+              <Compass className="w-5 h-5 text-[#00D2FF]" />
+              <span>Explorar Enfoque</span>
+            </motion.button>
+          </motion.div>
+
+        </div>
+
+        {/* Scroll Indicator exact to screenshot */}
+        <div className="relative z-10 pb-8 pt-4 flex flex-col items-center">
+          <button
+            onClick={() => scrollToSection('segmentacion')}
+            className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-slate-400/80 hover:text-white uppercase transition-colors flex flex-col items-center gap-2"
+          >
+            <span>SCROLL</span>
+          </button>
+        </div>
+
+      </section>
+
+      {/* Modals */}
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+      />
+      <ProposalModal
+        isOpen={isProposalOpen}
+        onClose={() => setIsProposalOpen(false)}
+      />
+    </>
   );
 };
 
 export default Hero;
+

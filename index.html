@@ -10,6 +10,19 @@
     <link rel="canonical" href="https://www.bcn360experience.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      (function() {
+        try {
+          var _fetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _fetch; },
+            set: function(val) { _fetch = val; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
+      })();
+    </script>
     <meta property="og:title" content="BCN360 Experience — Innovación Barcelona × Latam" />
     <meta property="og:description" content="BCN360 Experience conecta a líderes y emprendedores de Latinoamérica con el ecosistema de innovación de Barcelona a través de experiencias inmersivas a medida." />
     <meta property="og:type" content="website" />

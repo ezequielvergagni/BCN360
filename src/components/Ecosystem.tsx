@@ -1,67 +1,100 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Building, Rocket, Cpu, Landmark } from 'lucide-react';
-import { AnimatedHeadingWords, AnimatedCounter } from './AnimatedText';
+import { Building2, Rocket, Cpu, Landmark } from 'lucide-react';
+import { AnimatedCounter } from './AnimatedText';
 
-const Ecosystem = () => {
-  const items = [
-    { label: "Universidades & Centros I+D", count: "15+", icon: Building },
-    { label: "Startups de Alto Impacto", count: "1.900+", icon: Rocket },
-    { label: "Hubs Tecnológicos Globales", count: "100+", icon: Cpu },
-    { label: "Venture Capital & Inversión", count: "€1.5B+", icon: Landmark },
-  ];
+const metrics = [
+  { 
+    label: "Universidades & Centros I+D", 
+    count: "15+", 
+    icon: Building2,
+    highlight: true
+  },
+  { 
+    label: "Startups de Alto Impacto", 
+    count: "1900+", 
+    icon: Rocket,
+    highlight: false
+  },
+  { 
+    label: "Hubs Tecnológicos Globales", 
+    count: "100+", 
+    icon: Cpu,
+    highlight: false
+  },
+  { 
+    label: "Venture Capital & Inversión", 
+    count: "€1.5B+", 
+    icon: Landmark,
+    highlight: false
+  },
+];
 
+const Ecosystem: React.FC = () => {
   return (
-    <section className="py-24 bg-[#050D1A] text-white relative overflow-hidden">
-      {/* Background Tech Grid */}
-      <div className="absolute inset-0 bg-tech-grid-dark opacity-30 pointer-events-none" />
-
-      {/* Ambient Glows in BCN Brand Blue */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#0052CC]/20 blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#00D2FF]/15 blur-[140px] pointer-events-none" />
+    <section className="py-24 bg-[#050C1A] text-white relative overflow-hidden">
+      {/* Background Ambient Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full bg-[#0052CC]/15 blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-[#00D2FF]/10 blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
+        {/* Header exact to screenshot */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-            <AnimatedHeadingWords
-              text="Un ecosistema en constante expansión"
-              highlightText="expansión"
-              highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] to-[#0052CC]"
-            />
-          </h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-5"
+          >
+            Un ecosistema en constante{' '}
+            <span className="text-[#00D2FF] drop-shadow-[0_0_25px_rgba(0,210,255,0.35)] block sm:inline">
+              expansión
+            </span>
+          </motion.h2>
 
-          <p className="text-lg text-slate-300">
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="text-slate-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-normal"
+          >
             Barcelona se consolida como el hub tecnológico más activo del sur de Europa, atrayendo talento internacional e inversión multinacional.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Metric Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item, index) => {
+        {/* Metric Cards Grid exact to screenshot */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          {metrics.map((item, index) => {
             const IconComponent = item.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ scale: 0.9, opacity: 0, y: 30 }}
-                whileInView={{ scale: 1, opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.12 }}
-                whileHover={{ y: -6, borderColor: "rgba(0, 210, 255, 0.5)" }}
-                className="bg-white/5 backdrop-blur-md rounded-3xl p-8 text-center border border-white/10 hover:bg-white/10 transition-all duration-300 relative group overflow-hidden shadow-xl"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -6, borderColor: "rgba(0, 210, 255, 0.6)" }}
+                className={`bg-[#0C1629]/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-8 text-center border transition-all duration-300 relative group overflow-hidden shadow-2xl flex flex-col items-center justify-center min-h-[230px] ${
+                  item.highlight
+                    ? 'border-[#0091FF] shadow-[0_0_30px_rgba(0,145,255,0.2)]'
+                    : 'border-slate-800/80 hover:border-slate-700'
+                }`}
               >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0052CC] to-[#00D2FF] opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <div className="w-12 h-12 mx-auto mb-6 rounded-2xl bg-[#0052CC]/20 border border-[#0052CC]/40 flex items-center justify-center text-[#00D2FF] group-hover:scale-110 transition-transform">
+                {/* Icon badge */}
+                <div className="w-12 h-12 mb-6 rounded-xl bg-[#112344] border border-[#00D2FF]/20 flex items-center justify-center text-[#00D2FF] group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6" />
                 </div>
 
-                <div className="text-4xl sm:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                  <AnimatedCounter target={item.count} className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#00D2FF]" />
+                {/* Number */}
+                <div className="text-4xl sm:text-5xl font-extrabold text-white mb-3 tracking-tight">
+                  <AnimatedCounter target={item.count} className="text-white" />
                 </div>
 
-                <div className="text-slate-300 font-semibold text-sm">
+                {/* Label */}
+                <div className="text-slate-200 font-semibold text-sm sm:text-base">
                   {item.label}
                 </div>
               </motion.div>
@@ -75,3 +108,4 @@ const Ecosystem = () => {
 };
 
 export default Ecosystem;
+

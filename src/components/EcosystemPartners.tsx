@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, Award } from 'lucide-react';
-import { AnimatedHeadingWords } from './AnimatedText';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
 import { ALL_PARTNER_LOGOS } from './PartnerLogos';
 
 interface FilterCategory {
   id: string;
   title: string;
+  count: number;
   partnerIds: string[];
 }
 
@@ -14,21 +14,25 @@ const filterCategories: FilterCategory[] = [
   {
     id: "instituciones",
     title: "Instituciones & Universidades",
+    count: 4,
     partnerIds: ["barcelona-activa", "mwcapital", "eit-food", "la-salle"]
   },
   {
     id: "aceleradoras",
-    title: "Hubs & Aceleradoras",
+    title: "Hubs & Fondos de Inversión",
+    count: 4,
     partnerIds: ["bcombinator", "seedrocket", "netmentora", "dayone"]
   },
   {
     id: "unicornios",
-    title: "Unicornios & Scaleups",
+    title: "Unicornios Tecnológicos",
+    count: 4,
     partnerIds: ["glovo", "typeform", "travelperk", "factorial"]
   },
   {
     id: "corporates",
-    title: "Innovación & Corporates",
+    title: "Corporativos & Scaleups",
+    count: 4,
     partnerIds: ["wallbox", "tradeinn", "bstartup", "bevzero"]
   }
 ];
@@ -43,75 +47,78 @@ const EcosystemPartners: React.FC = () => {
   });
 
   return (
-    <section className="py-20 bg-slate-50/60 relative overflow-hidden border-b border-slate-200/80">
-      {/* Subtle tech background pattern */}
-      <div className="absolute inset-0 bg-tech-grid opacity-20 pointer-events-none" />
+    <section id="ecosistema" className="py-24 bg-white relative overflow-hidden border-b border-slate-200/80">
+      {/* Ambient background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-white to-slate-50/70 pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-50/60 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-sky-50/60 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-14 max-w-3xl mx-auto">
           <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
+            <span>ACCESO DIRECTO Y VALIDADO</span>
+          </motion.div>
+
+          <motion.h2 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4"
+            transition={{ duration: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
-            <span>Alianzas & Red Estratégica</span>
-          </motion.div>
+            El ecosistema al que puedes{' '}
+            <span className="text-[#0052CC] font-extrabold underline decoration-[#00D2FF]/60 decoration-4 underline-offset-8">
+              acceder
+            </span>
+          </motion.h2>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-            <AnimatedHeadingWords
-              text="El ecosistema al que accedés"
-              highlightText="accedés"
-              highlightClassName="text-[#0052CC] font-extrabold"
-            />
-          </h2>
-
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Conectamos directamente a tu delegación con las instituciones públicas, aceleradoras, fondos de inversión y unicornios tecnológicos que lideran Barcelona.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-slate-600 text-base sm:text-lg md:text-xl leading-relaxed"
+          >
+            Abrimos las puertas de los organismos públicos, fondos de inversión, centros de I+D y unicornios tecnológicos que lideran la transformación en Barcelona.
+          </motion.p>
         </div>
 
-        {/* 16 Logos Grid Gallery */}
+        {/* 16 Logos Grid Gallery Container */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-sm"
+          className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm relative"
         >
-          {/* Top meta bar */}
-          <div className="flex items-center justify-center gap-2.5 mb-6 pb-4 border-b border-slate-100">
-            <div className="w-8 h-8 rounded-lg bg-[#0052CC]/10 flex items-center justify-center text-[#0052CC]">
-              <Award className="w-4 h-4" />
-            </div>
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-700">
-              16 Empresas, Instituciones y Fondos Aliados
-            </span>
-          </div>
-
           {/* Quick Filter Pill Buttons */}
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+          <div className="flex flex-wrap gap-2.5 mb-8 justify-center items-center">
             <button
               onClick={() => setActiveTab("all")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "all"
-                  ? "bg-[#0052CC] text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-[#0052CC] text-white shadow-md shadow-blue-900/20"
+                  : "bg-slate-100/90 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              Todos ({ALL_PARTNER_LOGOS.length})
+              Todos los Aliados ({ALL_PARTNER_LOGOS.length})
             </button>
             {filterCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveTab(cat.id)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${
                   activeTab === cat.id
-                    ? "bg-[#0052CC] text-white shadow-sm"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    ? "bg-[#0052CC] text-white shadow-md shadow-blue-900/20"
+                    : "bg-slate-100/90 text-slate-600 hover:bg-slate-200"
                 }`}
               >
                 {cat.title}
@@ -128,27 +135,40 @@ const EcosystemPartners: React.FC = () => {
                   <motion.div
                     key={item.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    transition={{ duration: 0.25 }}
-                    className="bg-slate-50/80 hover:bg-white rounded-2xl p-5 border border-slate-200/80 hover:border-[#0052CC]/50 shadow-2xs hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 flex flex-col items-center justify-center text-center h-32 group"
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                    className="bg-slate-50/70 hover:bg-white rounded-2xl p-5 border border-slate-200/90 hover:border-[#0052CC]/50 shadow-2xs hover:shadow-xl hover:shadow-blue-900/8 transition-all duration-300 flex flex-col items-center justify-between h-36 group cursor-default"
                   >
-                    <div className="w-full flex items-center justify-center h-14">
+                    <div className="w-full flex items-center justify-center h-16">
                       <LogoComp
-                        className="max-h-10 max-w-[150px] w-auto transition-transform duration-300 group-hover:scale-105"
+                        className="max-h-12 max-w-[155px] w-auto transition-all duration-300 group-hover:scale-105"
                         grayscale={true}
                       />
                     </div>
-                    <span className="text-[11px] font-semibold text-slate-500 group-hover:text-[#0052CC] transition-colors mt-2 tracking-tight line-clamp-1">
-                      {item.category}
-                    </span>
+                    <div className="w-full pt-2 border-t border-slate-200/60 flex items-center justify-center">
+                      <span className="text-[11px] font-semibold text-slate-500 group-hover:text-[#0052CC] transition-colors tracking-tight line-clamp-1 text-center">
+                        {item.category}
+                      </span>
+                    </div>
                   </motion.div>
                 );
               })}
             </AnimatePresence>
           </motion.div>
+
+          {/* Bottom Trust Micro-bar */}
+          <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>Acceso directo coordinado por el equipo local de BCN360 en Barcelona</span>
+            </div>
+            <span className="font-semibold text-slate-700">
+              ¿Tu sector no aparece? Diseñamos agendas a medida según tus objetivos.
+            </span>
+          </div>
         </motion.div>
 
       </div>
@@ -157,3 +177,4 @@ const EcosystemPartners: React.FC = () => {
 };
 
 export default EcosystemPartners;
+
