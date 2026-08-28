@@ -100,7 +100,7 @@ const WhatIsIncluded: React.FC = () => {
   const [isProposalOpen, setIsProposalOpen] = useState(false);
 
   return (
-    <section id="que-incluye" className="py-28 bg-white relative overflow-hidden">
+    <section id="servicios" className="py-28 bg-white relative overflow-hidden">
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 bg-tech-grid opacity-30 pointer-events-none" />
 

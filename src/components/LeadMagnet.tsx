@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Download, BookOpen, CheckCircle2, Sparkles, FileText, Lock, Globe, Building, Mail, User } from 'lucide-react';
+import { Download, BookOpen, CheckCircle2, Sparkles, FileText, Lock, Globe, Building, Mail, User, Loader2 } from 'lucide-react';
 import { AnimatedHeadingWords } from './AnimatedText';
+import { submitLeadForm } from '../utils/formSubmit';
 
 const guideChapters = [
   "Mapeo de los 15 centros de I+D y clústeres más activos",
@@ -21,13 +22,26 @@ const LeadMagnet: React.FC = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsDownloaded(true);
-    }, 900);
+
+    await submitLeadForm({
+      formName: 'Descarga Guía Ecosistema Barcelona 2026',
+      subject: `[BCN360] Nuevo Lead - Descarga Guía: ${formData.name} (${formData.company || formData.country})`,
+      replyTo: formData.email,
+      data: {
+        'Nombre': formData.name,
+        'Email': formData.email,
+        'Empresa': formData.company,
+        'País': formData.country,
+        'Perfil': formData.profile,
+        'Recurso Descargado': 'Guía del Ecosistema de Innovación de Barcelona para LatAm (38 págs)'
+      }
+    });
+
+    setIsLoading(false);
+    setIsDownloaded(true);
   };
 
   return (
@@ -204,10 +218,13 @@ const LeadMagnet: React.FC = () => {
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] text-white font-extrabold py-4 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-sm sm:text-base group disabled:opacity-75"
+                        className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] text-white font-extrabold py-4 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-sm sm:text-base group disabled:opacity-75 cursor-pointer"
                       >
                         {isLoading ? (
-                          <span>Generando tu acceso seguro...</span>
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
+                            <span>Generando tu acceso seguro...</span>
+                          </>
                         ) : (
                           <>
                             <Download className="w-5 h-5 text-[#00D2FF] group-hover:translate-y-0.5 transition-transform" />

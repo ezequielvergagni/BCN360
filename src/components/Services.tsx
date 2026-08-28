@@ -36,7 +36,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="servicios" className="py-28 bg-white relative overflow-hidden">
+    <section id="modalidades" className="py-28 bg-white relative overflow-hidden">
       {/* Background Subtle Tech Lines */}
       <div className="absolute inset-0 bg-tech-grid opacity-40 pointer-events-none" />
 

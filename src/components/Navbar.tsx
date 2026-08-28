@@ -28,10 +28,10 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Perfiles', href: isHome ? '#segmentacion' : '/#segmentacion' },
-    { name: '¿Qué incluye?', href: isHome ? '#que-incluye' : '/#que-incluye' },
+    { name: 'Inicio', href: isHome ? '#inicio' : '/' },
+    { name: 'Servicios', href: isHome ? '#servicios' : '/#servicios' },
     { name: 'Enfoque', href: isHome ? '#enfoque' : '/#enfoque' },
-    { name: 'Modalidades', href: isHome ? '#servicios' : '/#servicios' },
+    { name: 'Ecosistema', href: isHome ? '#ecosistema' : '/#ecosistema' },
     { name: 'Testimonios', href: isHome ? '#testimonios' : '/#testimonios' },
     { name: 'Equipo', href: isHome ? '#equipo' : '/#equipo' },
     { name: 'Blog', href: '/blog', isRoute: true },

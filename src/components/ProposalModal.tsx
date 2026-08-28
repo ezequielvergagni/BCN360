@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FileText, Send, Building, Mail, User, Globe, Users, Calendar, CheckCircle2, X } from 'lucide-react';
+import { FileText, Send, Building, Mail, User, Globe, Users, Calendar, CheckCircle2, X, Loader2 } from 'lucide-react';
+import { submitLeadForm } from '../utils/formSubmit';
 
 interface ProposalModalProps {
   isOpen: boolean;
@@ -20,9 +21,29 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
     details: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    await submitLeadForm({
+      formName: 'Solicitud de Propuesta Personalizada',
+      subject: `[BCN360] Nueva Propuesta Solicitada: ${formData.company || formData.name} (${formData.country})`,
+      replyTo: formData.email,
+      data: {
+        'Responsable': formData.name,
+        'Email': formData.email,
+        'Empresa o Entidad': formData.company,
+        'País': formData.country,
+        'Tipo de Perfil': formData.profile,
+        'Tamaño de Delegación': formData.delegationSize,
+        'Ventana de Tiempo': formData.expectedQuarter,
+        'Detalles y Foco Sectorial': formData.details || 'No especificado',
+      }
+    });
+
+    setIsLoading(false);
     setIsSubmitted(true);
   };
 
@@ -216,10 +237,20 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full bg-[#0052CC] hover:bg-[#0042A3] text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
+                      disabled={isLoading}
+                      className="w-full bg-[#0052CC] hover:bg-[#0042A3] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
                     >
-                      <Send className="w-4 h-4 text-[#00D2FF] group-hover:translate-x-1 transition-transform" />
-                      <span>Solicitar Propuesta y Presupuesto Detallado</span>
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin text-[#00D2FF]" />
+                          <span>Procesando requerimiento...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 text-[#00D2FF] group-hover:translate-x-1 transition-transform" />
+                          <span>Solicitar Propuesta y Presupuesto Detallado</span>
+                        </>
+                      )}
                     </button>
                   </div>
 

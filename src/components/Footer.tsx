@@ -1,8 +1,36 @@
-import React from 'react';
-import { Mail, Phone, Linkedin, MapPin, Send, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, Linkedin, MapPin, Send, Sparkles, CheckCircle2, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { submitLeadForm } from '../utils/formSubmit';
 
 const Footer = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    setIsLoading(true);
+    await submitLeadForm({
+      formName: 'Formulario de Contacto Footer',
+      subject: `[BCN360] Nuevo Mensaje de Contacto: ${formData.name}`,
+      replyTo: formData.email,
+      data: {
+        'Nombre': formData.name,
+        'Email': formData.email,
+        'Mensaje': formData.message
+      }
+    });
+
+    setIsLoading(false);
+    setIsSubmitted(true);
+  };
   return (
     <footer id="contacto" className="bg-[#050D1A] text-white relative overflow-hidden">
       {/* High-Tech BCN Brand Blue Accent Line */}
@@ -84,47 +112,87 @@ const Footer = () => {
               <span className="w-2 h-2 rounded-full bg-[#00D2FF]" />
             </h3>
 
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nombre completo</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium"
-                  placeholder="Tu nombre y apellido"
-                />
-              </div>
+            {!isSubmitted ? (
+              <form className="space-y-5" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nombre completo *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium"
+                    placeholder="Tu nombre y apellido"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Correo Corporativo</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium"
-                  placeholder="tu@empresa.com"
-                />
-              </div>
+                <div>
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Correo Corporativo *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium"
+                    placeholder="tu@empresa.com"
+                  />
+                </div>
 
-              <div>
-                <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Detalles de tu consulta o misión</label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium resize-none"
-                  placeholder="¿En qué fechas prevés tu visita o cuál es el propósito de tu delegación?"
-                ></textarea>
-              </div>
+                <div>
+                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Detalles de tu consulta o misión *</label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium resize-none"
+                    placeholder="¿En qué fechas prevés tu visita o cuál es el propósito de tu delegación?"
+                  ></textarea>
+                </div>
 
-              <motion.button
-                whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(0, 82, 204, 0.5)" }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="w-full bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/30 flex items-center justify-center gap-2 text-base"
-              >
-                <span>Enviar Mensaje</span>
-                <Send className="w-4 h-4" />
-              </motion.button>
-            </form>
+                <motion.button
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(0, 82, 204, 0.5)" }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-[#0052CC] hover:bg-[#0042A3] disabled:opacity-75 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/30 flex items-center justify-center gap-2 text-base cursor-pointer"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
+                      <span>Enviando mensaje...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Enviar Mensaje</span>
+                      <Send className="w-4 h-4" />
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            ) : (
+              <div className="text-center py-10 space-y-4">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-7 h-7" />
+                </div>
+                <h4 className="text-xl font-bold text-white">¡Mensaje Enviado con Éxito!</h4>
+                <p className="text-slate-300 text-sm">
+                  Gracias por contactarnos. Hemos recibido tus datos y te responderemos a la brevedad a <strong className="text-white">{formData.email}</strong>.
+                </p>
+                <button
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setFormData({ name: '', email: '', message: '' });
+                  }}
+                  className="px-5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition-all"
+                >
+                  Enviar otro mensaje
+                </button>
+              </div>
+            )}
           </div>
 
         </div>

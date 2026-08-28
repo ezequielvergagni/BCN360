@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Clock, User, Mail, Building, Globe, CheckCircle2, X, Sparkles, Send } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Building, Globe, CheckCircle2, X, Sparkles, Send, Loader2 } from 'lucide-react';
+import { submitLeadForm } from '../utils/formSubmit';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -20,11 +21,29 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     preferredTime: 'Mañana (09:00 - 13:00 CET)',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    
+    await submitLeadForm({
+      formName: 'Llamada de Diagnóstico Estratégica (20 min)',
+      subject: `[BCN360] Nueva Llamada Agendada: ${formData.name} (${formData.company || formData.country})`,
+      replyTo: formData.email,
+      data: {
+        'Nombre': formData.name,
+        'Email': formData.email,
+        'Empresa u Organización': formData.company,
+        'País': formData.country,
+        'Tipo de Perfil': formData.profile,
+        'Horario Preferido': formData.preferredTime,
+        'Objetivo en Barcelona': formData.goal || 'No especificado',
+      }
+    });
+
+    setIsLoading(false);
     setIsSubmitted(true);
-    // Simulate booking confirmation
   };
 
   const resetForm = () => {
@@ -198,10 +217,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
+                      disabled={isLoading}
+                      className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
                     >
-                      <Calendar className="w-5 h-5 text-[#00D2FF] group-hover:scale-110 transition-transform" />
-                      <span>Confirmar Solicitud de Llamada (20 min)</span>
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
+                          <span>Enviando solicitud...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Calendar className="w-5 h-5 text-[#00D2FF] group-hover:scale-110 transition-transform" />
+                          <span>Confirmar Solicitud de Llamada (20 min)</span>
+                        </>
+                      )}
                     </button>
                   </div>
 

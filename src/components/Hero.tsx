@@ -17,7 +17,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <section className="relative w-full min-h-screen flex flex-col justify-between items-center bg-[#050C1A] text-white overflow-hidden select-none">
+      <section id="inicio" className="relative w-full min-h-screen flex flex-col justify-between items-center bg-[#050C1A] text-white overflow-hidden select-none">
         
         {/* Background Aerial Barcelona Image with Cinematic Deep Dark Blue Atmosphere */}
         <div className="absolute inset-0 z-0">
