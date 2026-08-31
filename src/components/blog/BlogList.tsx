@@ -5,8 +5,10 @@ import { Calendar, Clock, User, ChevronRight, Sparkles } from 'lucide-react';
 import { BLOG_POSTS, CATEGORIES } from '../../constants';
 import { AnimatedHeadingWords } from '../AnimatedText';
 import Seo from '../Seo';
+import { useLanguage } from '../../context/LanguageContext';
 
 const BlogList: React.FC = () => {
+  const { t, language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('Todos');
 
   const filteredPosts = activeCategory === 'Todos' 
@@ -16,8 +18,8 @@ const BlogList: React.FC = () => {
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen relative overflow-hidden">
       <Seo
-        title="Blog de innovación y negocios Barcelona-Latam"
-        description="Guías, casos y estrategias para conectar empresas e instituciones de Latinoamérica con el ecosistema de innovación de Barcelona."
+        title={language === 'en' ? "Barcelona-LatAm Innovation & Business Blog" : "Blog de innovación y negocios Barcelona-Latam"}
+        description={language === 'en' ? "Guides, case studies, and strategies to connect Latin American organizations with Barcelona's innovation ecosystem." : "Guías, casos y estrategias para conectar empresas e instituciones de Latinoamérica con el ecosistema de innovación de Barcelona."}
         path="/blog"
       />
       {/* Background Tech Grid */}
@@ -33,18 +35,18 @@ const BlogList: React.FC = () => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
-            <span>Actualidad & Ecosistema</span>
+            <span>{t('blog.badge')}</span>
           </motion.div>
 
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
             <AnimatedHeadingWords
-              text="Blog & Artículos Estratégicos"
+              text={t('blog.title')}
               highlightText="Estratégicos"
               highlightClassName="text-[#0052CC]"
             />
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Perspectivas, casos de éxito y claves del ecosistema de innovación de Barcelona para líderes y fundadores de Latinoamérica.
+            {t('blog.subtitle')}
           </p>
         </div>
 
@@ -60,7 +62,7 @@ const BlogList: React.FC = () => {
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
               }`}
             >
-              {category}
+              {category === 'Todos' ? (language === 'en' ? 'All' : 'Todos') : category}
             </button>
           ))}
         </div>
@@ -124,7 +126,7 @@ const BlogList: React.FC = () => {
                     </div>
                     
                     <span className="text-[#0052CC] flex items-center gap-1 text-xs font-bold group-hover:gap-2 transition-all">
-                      <span>Leer artículo</span>
+                      <span>{t('blogPreview.readArticle')}</span>
                       <ChevronRight size={14} />
                     </span>
                   </div>

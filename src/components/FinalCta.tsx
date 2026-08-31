@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, ArrowRight, FileText, CheckCircle2, Sparkles, PhoneCall, Mail } from 'lucide-react';
+import { Calendar, ArrowRight, FileText, CheckCircle2, Sparkles } from 'lucide-react';
 import { AnimatedHeadingWords } from './AnimatedText';
 import { BookingModal } from './BookingModal';
 import { ProposalModal } from './ProposalModal';
+import { useLanguage } from '../context/LanguageContext';
 
 const FinalCta: React.FC = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isProposalOpen, setIsProposalOpen] = useState(false);
+  const { t, language } = useLanguage();
 
   return (
     <section className="py-24 bg-gradient-to-b from-[#050D1A] via-[#002255] to-[#050D1A] text-white relative overflow-hidden">
@@ -26,19 +28,19 @@ const FinalCta: React.FC = () => {
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#00D2FF]/40 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-6"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#00D2FF]" />
-          <span>DA EL PRIMER PASO HOY</span>
+          <span>{t('finalCta.badge')}</span>
         </motion.div>
 
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto">
           <AnimatedHeadingWords
-            text="¿Listo para conectar tu organización con el ecosistema de Barcelona?"
-            highlightText="ecosistema de Barcelona"
+            text={t('finalCta.title')}
+            highlightText={language === 'en' ? 'Barcelona ecosystem' : 'ecosistema de Barcelona'}
             highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#38BDF8] to-[#0052CC]"
           />
         </h2>
 
         <p className="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-          En una videollamada de 20 minutos analizamos las necesidades de tu delegación y te presentamos un borrador preliminar de agenda sin compromiso.
+          {t('finalCta.subtitle')}
         </p>
 
         {/* Dual Conversion Buttons */}
@@ -50,7 +52,7 @@ const FinalCta: React.FC = () => {
             className="w-full sm:w-auto px-8 py-4 bg-[#0052CC] hover:bg-[#0042A3] text-white font-extrabold rounded-full transition-all shadow-xl shadow-[#0052CC]/40 flex items-center justify-center gap-2.5 text-base group"
           >
             <Calendar className="w-5 h-5 text-[#00D2FF] group-hover:rotate-6 transition-transform" />
-            <span>Agenda tu llamada (20 min)</span>
+            <span>{t('finalCta.bookBtn')}</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </motion.button>
 
@@ -61,7 +63,7 @@ const FinalCta: React.FC = () => {
             className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:border-[#00D2FF]/60 text-white font-bold rounded-full transition-all flex items-center justify-center gap-2 text-base"
           >
             <FileText className="w-5 h-5 text-[#00D2FF]" />
-            <span>Solicitar propuesta a medida</span>
+            <span>{t('finalCta.proposalBtn')}</span>
           </motion.button>
         </div>
 
@@ -69,15 +71,15 @@ const FinalCta: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs sm:text-sm text-slate-300 font-medium pt-6 border-t border-white/10">
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
-            Respuesta en menos de 24h
+            {t('finalCta.guarantee1')}
           </span>
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
-            Agenda 100% personalizada
+            {t('finalCta.guarantee2')}
           </span>
           <span className="flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
-            Atención telefónica directa (+34 610 691 957)
+            {t('finalCta.guarantee3')}
           </span>
         </div>
 

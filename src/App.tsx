@@ -16,6 +16,7 @@ import FinalCta from './components/FinalCta';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Seo from './components/Seo';
+import { LanguageProvider } from './context/LanguageContext';
 
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
 
@@ -88,9 +89,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </LanguageProvider>
   );
 }
 

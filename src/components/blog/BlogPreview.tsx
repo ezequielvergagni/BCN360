@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Sparkles } from 'lucide-react';
 import { BLOG_POSTS } from '../../constants';
 import { AnimatedHeadingWords } from '../AnimatedText';
+import { useLanguage } from '../../context/LanguageContext';
 
 const BlogPreview: React.FC = () => {
+  const { t, language } = useLanguage();
   const latestPosts = BLOG_POSTS.slice(0, 3);
 
   return (
@@ -19,18 +21,18 @@ const BlogPreview: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4">
               <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
-              <span>Novedades & Tendencias</span>
+              <span>{t('blogPreview.badge')}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               <AnimatedHeadingWords
-                text="Últimas publicaciones del Blog"
+                text={t('blogPreview.title')}
                 highlightText="Blog"
                 highlightClassName="text-[#0052CC]"
               />
             </h2>
             <p className="text-slate-600 mt-2 max-w-xl text-base">
-              Artículos, entrevistas e informes sobre el ecosistema de innovación en Barcelona y casos de éxito Latam.
+              {t('blogPreview.subtitle')}
             </p>
           </div>
 
@@ -38,7 +40,7 @@ const BlogPreview: React.FC = () => {
             to="/blog" 
             className="hidden md:inline-flex items-center gap-2 text-[#0052CC] font-bold hover:text-[#00388A] hover:gap-3 transition-all text-sm group bg-blue-50/80 px-5 py-2.5 rounded-full border border-blue-100 shadow-sm"
           >
-            <span>Ver todas las publicaciones</span>
+            <span>{t('blogPreview.viewAll')}</span>
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -80,7 +82,7 @@ const BlogPreview: React.FC = () => {
                   </p>
 
                   <span className="text-[#0052CC] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                    <span>Leer artículo</span>
+                    <span>{t('blogPreview.readArticle')}</span>
                     <ArrowRight size={14} />
                   </span>
                 </div>
@@ -94,7 +96,7 @@ const BlogPreview: React.FC = () => {
             to="/blog" 
             className="inline-flex items-center gap-2 text-[#0052CC] font-bold bg-blue-50 px-6 py-3 rounded-full border border-blue-100"
           >
-            <span>Ver todo el blog</span>
+            <span>{t('blogPreview.viewAllMobile')}</span>
             <ArrowRight size={18} />
           </Link>
         </div>

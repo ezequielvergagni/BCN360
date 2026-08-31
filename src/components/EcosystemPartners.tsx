@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, CheckCircle2 } from 'lucide-react';
 import { ALL_PARTNER_LOGOS } from './PartnerLogos';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FilterCategory {
   id: string;
-  title: string;
   count: number;
   partnerIds: string[];
 }
@@ -13,25 +13,21 @@ interface FilterCategory {
 const filterCategories: FilterCategory[] = [
   {
     id: "instituciones",
-    title: "Instituciones & Universidades",
     count: 4,
     partnerIds: ["barcelona-activa", "mwcapital", "eit-food", "la-salle"]
   },
   {
     id: "aceleradoras",
-    title: "Hubs & Fondos de Inversión",
     count: 4,
     partnerIds: ["bcombinator", "seedrocket", "netmentora", "dayone"]
   },
   {
     id: "unicornios",
-    title: "Unicornios Tecnológicos",
     count: 4,
     partnerIds: ["glovo", "typeform", "travelperk", "factorial"]
   },
   {
     id: "corporates",
-    title: "Corporativos & Scaleups",
     count: 4,
     partnerIds: ["wallbox", "tradeinn", "bstartup", "bevzero"]
   }
@@ -39,12 +35,28 @@ const filterCategories: FilterCategory[] = [
 
 const EcosystemPartners: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("all");
+  const { t, language } = useLanguage();
 
   const filteredLogos = ALL_PARTNER_LOGOS.filter((item) => {
     if (activeTab === "all") return true;
     const cat = filterCategories.find((c) => c.id === activeTab);
     return cat?.partnerIds.includes(item.id);
   });
+
+  const getCategoryTitle = (id: string) => {
+    switch (id) {
+      case 'instituciones':
+        return language === 'en' ? 'Institutions & Universities' : 'Instituciones & Universidades';
+      case 'aceleradoras':
+        return language === 'en' ? 'Hubs & VC Funds' : 'Hubs & Fondos de Inversión';
+      case 'unicornios':
+        return language === 'en' ? 'Tech Unicorns' : 'Unicornios Tecnológicos';
+      case 'corporates':
+        return language === 'en' ? 'Corporates & Scaleups' : 'Corporativos & Scaleups';
+      default:
+        return id;
+    }
+  };
 
   return (
     <section id="ecosistema" className="py-24 bg-white relative overflow-hidden border-b border-slate-200/80">
@@ -64,7 +76,7 @@ const EcosystemPartners: React.FC = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
-            <span>ACCESO DIRECTO Y VALIDADO</span>
+            <span>{t('ecosystemPartners.badge')}</span>
           </motion.div>
 
           <motion.h2 
@@ -74,9 +86,9 @@ const EcosystemPartners: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5"
           >
-            El ecosistema al que puedes{' '}
+            {t('ecosystemPartners.title')}{' '}
             <span className="text-[#0052CC] font-extrabold underline decoration-[#00D2FF]/60 decoration-4 underline-offset-8">
-              acceder
+              {t('ecosystemPartners.highlight')}
             </span>
           </motion.h2>
 
@@ -87,7 +99,7 @@ const EcosystemPartners: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-slate-600 text-base sm:text-lg md:text-xl leading-relaxed"
           >
-            Abrimos las puertas de los organismos públicos, fondos de inversión, centros de I+D y unicornios tecnológicos que lideran la transformación en Barcelona.
+            {t('ecosystemPartners.subtitle')}
           </motion.p>
         </div>
 
@@ -109,7 +121,7 @@ const EcosystemPartners: React.FC = () => {
                   : "bg-slate-100/90 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              Todos los Aliados ({ALL_PARTNER_LOGOS.length})
+              {language === 'en' ? 'All Partners' : 'Todos los Aliados'} ({ALL_PARTNER_LOGOS.length})
             </button>
             {filterCategories.map((cat) => (
               <button
@@ -121,7 +133,7 @@ const EcosystemPartners: React.FC = () => {
                     : "bg-slate-100/90 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                {cat.title}
+                {getCategoryTitle(cat.id)}
               </button>
             ))}
           </div>
@@ -163,10 +175,10 @@ const EcosystemPartners: React.FC = () => {
           <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Acceso directo coordinado por el equipo local de BCN360 en Barcelona</span>
+              <span>{t('ecosystemPartners.trustDirect')}</span>
             </div>
             <span className="font-semibold text-slate-700">
-              ¿Tu sector no aparece? Diseñamos agendas a medida según tus objetivos.
+              {t('ecosystemPartners.customNotice')}
             </span>
           </div>
         </motion.div>

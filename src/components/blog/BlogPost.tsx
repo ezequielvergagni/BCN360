@@ -5,23 +5,25 @@ import Markdown from 'react-markdown';
 import { Calendar, Clock, User, ArrowLeft, Share2, Sparkles, Send } from 'lucide-react';
 import { BLOG_POSTS } from '../../constants';
 import Seo, { SITE_URL } from '../Seo';
+import { useLanguage } from '../../context/LanguageContext';
 
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const { t, language } = useLanguage();
   const post = BLOG_POSTS.find(p => p.id === id || p.path === location.pathname);
 
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 pt-20">
         <div className="text-center bg-white p-10 rounded-3xl shadow-xl border border-slate-200">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Artículo no encontrado</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">{t('blog.notFoundTitle')}</h1>
           <Link 
             to="/blog" 
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#0052CC] text-white font-bold rounded-full hover:bg-[#0042A3] transition-colors"
           >
             <ArrowLeft size={18} />
-            Volver al blog
+            {t('blog.backToBlog')}
           </Link>
         </div>
       </div>
@@ -38,7 +40,7 @@ const BlogPost: React.FC = () => {
       image: [post.image],
       datePublished: post.datePublished,
       dateModified: post.dateModified,
-      inLanguage: 'es-ES',
+      inLanguage: language === 'en' ? 'en-US' : 'es-ES',
       mainEntityOfPage: canonicalUrl,
       keywords: post.keywords.join(', '),
       author: {
@@ -59,7 +61,7 @@ const BlogPost: React.FC = () => {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Inicio',
+          name: language === 'en' ? 'Home' : 'Inicio',
           item: SITE_URL,
         },
         {
@@ -100,7 +102,7 @@ const BlogPost: React.FC = () => {
           className="inline-flex items-center gap-2 text-slate-500 hover:text-[#0052CC] mb-8 font-semibold text-sm transition-colors group"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          Volver a todos los artículos
+          {t('blog.backToBlog')}
         </Link>
 
         <header className="mb-10">
@@ -145,8 +147,8 @@ const BlogPost: React.FC = () => {
                 }
               }}
               className="p-2.5 rounded-full bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-[#0052CC] transition-colors"
-              title="Compartir artículo"
-              aria-label="Compartir artículo"
+              title={t('blog.shareText')}
+              aria-label={t('blog.shareText')}
             >
               <Share2 size={18} />
             </button>
@@ -186,22 +188,22 @@ const BlogPost: React.FC = () => {
             <div className="relative z-10 text-center max-w-xl mx-auto">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-4">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Misiones de Inmersión</span>
+                <span>{language === 'en' ? 'Immersion Missions' : 'Misiones de Inmersión'}</span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight">
-                ¿Planeas conectar a tu organización con Barcelona?
+                {language === 'en' ? 'Planning to connect your organization with Barcelona?' : '¿Planeas conectar a tu organización con Barcelona?'}
               </h3>
               
               <p className="text-slate-300 text-sm sm:text-base mb-8 leading-relaxed">
-                Diseñamos agendas de alto impacto para delegaciones, startups y corporaciones latinoamericanas.
+                {language === 'en' ? 'We design high-impact agendas for Latin American delegations, startups, and corporations.' : 'Diseñamos agendas de alto impacto para delegaciones, startups y corporaciones latinoamericanas.'}
               </p>
 
               <a 
                 href="/#contacto" 
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold rounded-full transition-all shadow-lg shadow-blue-600/30 text-sm"
               >
-                <span>Hablemos de tu viaje</span>
+                <span>{language === 'en' ? "Let's talk about your trip" : 'Hablemos de tu viaje'}</span>
                 <Send size={15} />
               </a>
             </div>

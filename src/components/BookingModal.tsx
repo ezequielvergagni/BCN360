@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Clock, User, Mail, Building, Globe, CheckCircle2, X, Sparkles, Send, Loader2 } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Building, Globe, CheckCircle2, X, Loader2 } from 'lucide-react';
 import { submitLeadForm } from '../utils/formSubmit';
+import { useLanguage } from '../context/LanguageContext';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface BookingModalProps {
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, initialProfile = 'Empresa' }) => {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,7 +31,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     
     await submitLeadForm({
       formName: 'Llamada de Diagnóstico Estratégica (20 min)',
-      subject: `[BCN360] Nueva Llamada Agendada: ${formData.name} (${formData.company || formData.country})`,
+      subject: `[BCN360] Nueva Llamada Agendada (${language.toUpperCase()}): ${formData.name} (${formData.company || formData.country})`,
       replyTo: formData.email,
       data: {
         'Nombre': formData.name,
@@ -39,6 +41,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
         'Tipo de Perfil': formData.profile,
         'Horario Preferido': formData.preferredTime,
         'Objetivo en Barcelona': formData.goal || 'No especificado',
+        'Idioma': language.toUpperCase()
       }
     });
 
@@ -50,6 +53,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     setIsSubmitted(false);
     onClose();
   };
+
+  const profileOptions = language === 'en' 
+    ? ['Company / Corporate', 'Institution / Government', 'Startup / Scaleup']
+    : ['Empresa / Corporativo', 'Institución / Gobierno', 'Startup / Scaleup'];
 
   return (
     <AnimatePresence>
@@ -78,7 +85,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors"
+              className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -89,13 +96,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0052CC]/30 border border-[#00D2FF]/40 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-2">
                     <Clock className="w-3.5 h-3.5" />
-                    <span>Llamada de Diagnóstico • 20 Minutos</span>
+                    <span>{t('bookingModal.badge')}</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Agenda tu llamada estratégica
+                    {t('bookingModal.title')}
                   </h3>
                   <p className="text-slate-300 text-sm mt-1">
-                    Evaluaremos los objetivos de tu organización y te mostraremos qué tipo de agenda y alianzas podemos abrir para ti en Barcelona.
+                    {t('bookingModal.subtitle')}
                   </p>
                 </div>
 
@@ -104,7 +111,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Nombre completo *
+                        {t('bookingModal.nameLabel')} *
                       </label>
                       <div className="relative">
                         <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -113,7 +120,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Tu nombre y apellido"
+                          placeholder={t('bookingModal.namePlaceholder')}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         />
                       </div>
@@ -121,7 +128,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Email corporativo *
+                        {t('bookingModal.emailLabel')} *
                       </label>
                       <div className="relative">
                         <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -140,7 +147,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Empresa / Institución *
+                        {t('bookingModal.companyLabel')} *
                       </label>
                       <div className="relative">
                         <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -149,7 +156,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                           required
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          placeholder="Nombre de la entidad"
+                          placeholder={t('bookingModal.companyPlaceholder')}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         />
                       </div>
@@ -157,7 +164,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        País de origen
+                        {t('bookingModal.countryLabel')}
                       </label>
                       <div className="relative">
                         <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -173,7 +180,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                           <option value="Perú">🇵🇪 Perú</option>
                           <option value="Uruguay">🇺🇾 Uruguay</option>
                           <option value="Ecuador">🇪🇨 Ecuador</option>
-                          <option value="Otro">🌎 Otro país LatAm</option>
+                          <option value="Otro">{language === 'en' ? '🌎 Other LatAm / International' : '🌎 Otro país LatAm'}</option>
                         </select>
                       </div>
                     </div>
@@ -181,15 +188,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                      Tipo de perfil
+                      {t('bookingModal.profileLabel')}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {['Empresa / Corporativo', 'Institución / Gobierno', 'Startup / Scaleup'].map((p) => (
+                      {profileOptions.map((p) => (
                         <button
                           key={p}
                           type="button"
                           onClick={() => setFormData({ ...formData, profile: p })}
-                          className={`py-2 px-3 text-xs font-bold rounded-xl border text-center transition-all ${
+                          className={`py-2 px-3 text-xs font-bold rounded-xl border text-center transition-all cursor-pointer ${
                             formData.profile === p
                               ? 'bg-[#0052CC] border-[#00D2FF] text-white shadow-md'
                               : 'bg-slate-900/60 border-slate-700 text-slate-300 hover:bg-slate-800'
@@ -203,13 +210,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                      ¿Qué objetivo principal buscas en Barcelona? (Opcional)
+                      {t('bookingModal.goalLabel')}
                     </label>
                     <textarea
                       rows={2}
                       value={formData.goal}
                       onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
-                      placeholder="Ej: Scouting de proveedores IA, alianzas con universidades, expansión a Europa..."
+                      placeholder={t('bookingModal.goalPlaceholder')}
                       className="w-full px-4 py-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm resize-none"
                     />
                   </div>
@@ -218,24 +225,24 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
+                      className="w-full bg-gradient-to-r from-[#0052CC] to-[#0088FF] hover:from-[#0042A3] hover:to-[#0070D6] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group cursor-pointer"
                     >
                       {isLoading ? (
                         <>
                           <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
-                          <span>Enviando solicitud...</span>
+                          <span>{t('bookingModal.submittingBtn')}</span>
                         </>
                       ) : (
                         <>
                           <Calendar className="w-5 h-5 text-[#00D2FF] group-hover:scale-110 transition-transform" />
-                          <span>Confirmar Solicitud de Llamada (20 min)</span>
+                          <span>{t('bookingModal.submitBtn')}</span>
                         </>
                       )}
                     </button>
                   </div>
 
                   <p className="text-center text-[11px] text-slate-400 mt-2">
-                    🔒 Sin costo ni compromiso comercial. Te responderemos en menos de 24 horas hábiles.
+                    {t('bookingModal.disclaimer')}
                   </p>
                 </form>
               </div>
@@ -245,16 +252,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-extrabold text-white mb-2">
-                  ¡Solicitud Recibida con Éxito!
+                  {t('bookingModal.successTitle')}
                 </h3>
                 <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
-                  Nos pondremos en contacto a <strong className="text-white">{formData.email}</strong> para coordinar el horario exacto de la videollamada con nuestro equipo en Barcelona.
+                  {t('bookingModal.successDesc')} <strong className="text-white">{formData.email}</strong>.
                 </p>
                 <button
                   onClick={resetForm}
-                  className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-sm transition-colors"
+                  className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-sm transition-colors cursor-pointer"
                 >
-                  Cerrar ventana
+                  {t('bookingModal.closeBtn')}
                 </button>
               </div>
             )}

@@ -1,71 +1,33 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Building2, Landmark, Rocket, ArrowRight, CheckCircle2, Sparkles, Users, Cpu, ShieldCheck } from 'lucide-react';
+import { Building2, Landmark, Rocket, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 import { AnimatedHeadingWords } from './AnimatedText';
 import { BookingModal } from './BookingModal';
 import { ProposalModal } from './ProposalModal';
+import { useLanguage } from '../context/LanguageContext';
 
-interface ProfileCard {
+interface ProfileCardConfig {
   id: string;
-  tag: string;
-  title: string;
-  promise: string;
-  description: string;
-  benefits: string[];
-  ctaLabel: string;
   icon: React.ComponentType<{ className?: string }>;
   accentColor: string;
   badgeBg: string;
 }
 
-const profiles: ProfileCard[] = [
+const profileConfigs: ProfileCardConfig[] = [
   {
     id: 'empresas',
-    tag: 'EMPRESAS & CORPORATIVOS',
-    title: 'Empresas y Corporativos',
-    promise: 'Scouting curado sin que tu equipo pierda meses.',
-    description: 'Accede a las tecnologías, proveedores punteros y modelos de negocio que están transformando tu industria en Europa, con reuniones 1-a-1 preparadas según tus desafíos.',
-    benefits: [
-      'Reuniones B2B con startups y scaleups filtradas por madurez',
-      'Benchmarking directo con directores de innovación abierta',
-      'Visitas privadas a centros tecnológicos y clústeres sectoriales',
-      'Detección de proveedores de IA, biotecnología, logística y sostenibilidad'
-    ],
-    ctaLabel: 'Diseñar scouting corporativo',
     icon: Building2,
     accentColor: '#0052CC',
     badgeBg: 'bg-blue-50 text-[#0052CC] border-blue-200'
   },
   {
     id: 'instituciones',
-    tag: 'INSTITUCIONES & GOBIERNOS',
-    title: 'Instituciones y Gobiernos',
-    promise: 'Misiones oficiales llave en mano con agenda de alto nivel.',
-    description: 'Conecta a tus autoridades, gremios o cámaras con los protagonistas del modelo de desarrollo económico, regeneración urbana (22@) y políticas de innovación de Barcelona.',
-    benefits: [
-      'Enlace institucional con Barcelona Activa, MWCapital y clústeres',
-      'Mesas de trabajo público-privadas y transferencia de políticas públicas',
-      'Coordinación protocolar, moderación bilingüe y logística integral',
-      'Visitas a universidades de excelencia (UPC, UB, La Salle, ESADE)'
-    ],
-    ctaLabel: 'Solicitar agenda institucional',
     icon: Landmark,
     accentColor: '#00388A',
     badgeBg: 'bg-indigo-50 text-indigo-700 border-indigo-200'
   },
   {
     id: 'scaleups',
-    tag: 'EMPRENDEDORES & SCALEUPS',
-    title: 'Emprendedores y Scaleups',
-    promise: 'Aterriza y expándete en Barcelona/Europa.',
-    description: 'Utiliza Barcelona como tu trampolín de internacionalización: valida tu encaje comercial en la Unión Europea, conecta con fondos de Venture Capital y cierra tus primeros clientes.',
-    benefits: [
-      'Pitch sessions con fondos de VC (BStartup Sabadell, CaixaBank DayOne)',
-      'Acceso a aceleradoras y hubs (Tech Barcelona Pier01, SeedRocket)',
-      'Asesoría de soft-landing legal, migratorio, corporativo y fiscal',
-      'Networking con fundadores de unicornios (Glovo, TravelPerk, Factorial)'
-    ],
-    ctaLabel: 'Acelerar expansión europea',
     icon: Rocket,
     accentColor: '#0088FF',
     badgeBg: 'bg-sky-50 text-sky-700 border-sky-200'
@@ -76,6 +38,7 @@ const ProfileSegmentation: React.FC = () => {
   const [selectedProfile, setSelectedProfile] = useState<string>('Empresa');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isProposalOpen, setIsProposalOpen] = useState(false);
+  const { t, language } = useLanguage();
 
   const handleCardCta = (profileTitle: string) => {
     setSelectedProfile(profileTitle);
@@ -98,29 +61,32 @@ const ProfileSegmentation: React.FC = () => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0052CC]/10 border border-[#0052CC]/20 text-[#0052CC] text-xs font-bold uppercase tracking-wider mb-4"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#0052CC]" />
-            <span>RUTAS DE INMERSIÓN ESTRATÉGICA</span>
+            <span>{t('profileSegmentation.badge')}</span>
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
             <AnimatedHeadingWords
-              text="Diseñado exactamente para tu tipo de organización"
-              highlightText="tu tipo de organización"
+              text={t('profileSegmentation.title')}
+              highlightText={t('profileSegmentation.highlight')}
               highlightClassName="text-[#0052CC] font-extrabold"
             />
           </h2>
 
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            Cada programa se estructura en torno al retorno específico y los objetivos estratégicos que tu entidad necesita conseguir.
+            {t('profileSegmentation.description')}
           </p>
         </div>
 
         {/* 3 Profile Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {profiles.map((card, idx) => {
-            const IconComp = card.icon;
+          {profileConfigs.map((cfg, idx) => {
+            const cardData = t(`profileSegmentation.profiles.${cfg.id}`) || {};
+            const IconComp = cfg.icon;
+            const benefits: string[] = Array.isArray(cardData.benefits) ? cardData.benefits : [];
+
             return (
               <motion.div
-                key={card.id}
+                key={cfg.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -134,8 +100,8 @@ const ProfileSegmentation: React.FC = () => {
                 <div>
                   {/* Category Pill & Icon */}
                   <div className="flex items-center justify-between mb-6">
-                    <span className={`px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider border ${card.badgeBg}`}>
-                      {card.tag}
+                    <span className={`px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider border ${cfg.badgeBg}`}>
+                      {cardData.tag}
                     </span>
                     <div className="w-12 h-12 rounded-2xl bg-[#0052CC]/10 text-[#0052CC] flex items-center justify-center group-hover:bg-[#0052CC] group-hover:text-white transition-all shadow-sm">
                       <IconComp className="w-6 h-6 stroke-[2]" />
@@ -144,27 +110,27 @@ const ProfileSegmentation: React.FC = () => {
 
                   {/* Profile Title */}
                   <h3 className="text-2xl font-extrabold text-slate-900 mb-2 group-hover:text-[#0052CC] transition-colors">
-                    {card.title}
+                    {cardData.title}
                   </h3>
 
                   {/* Core Value Promise */}
                   <div className="p-3.5 bg-blue-50/60 rounded-2xl border border-blue-100 mb-5">
                     <p className="text-sm font-bold text-[#0052CC] leading-snug">
-                      "{card.promise}"
+                      "{cardData.promise}"
                     </p>
                   </div>
 
                   {/* Description */}
                   <p className="text-slate-600 text-sm leading-relaxed mb-6 font-normal">
-                    {card.description}
+                    {cardData.description}
                   </p>
 
                   {/* Bullet Benefits */}
                   <div className="space-y-3 mb-8 pt-4 border-t border-slate-100">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                      Lo que obtendrás:
+                      {language === 'en' ? 'What you will receive:' : 'Lo que obtendrás:'}
                     </span>
-                    {card.benefits.map((b, i) => (
+                    {benefits.map((b, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
                         <CheckCircle2 className="w-4 h-4 text-[#0052CC] shrink-0 mt-0.5" />
                         <span>{b}</span>
@@ -178,10 +144,10 @@ const ProfileSegmentation: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => handleCardCta(card.title)}
+                    onClick={() => handleCardCta(cardData.title || cfg.id)}
                     className="w-full py-3.5 px-5 bg-slate-900 hover:bg-[#0052CC] text-white font-extrabold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-sm group/btn"
                   >
-                    <span>{card.ctaLabel}</span>
+                    <span>{cardData.ctaLabel}</span>
                     <ArrowRight className="w-4 h-4 text-[#00D2FF] group-hover/btn:translate-x-1 transition-transform" />
                   </motion.button>
                 </div>
@@ -198,10 +164,14 @@ const ProfileSegmentation: React.FC = () => {
             </div>
             <div>
               <h4 className="text-lg sm:text-xl font-extrabold text-white">
-                ¿No estás seguro de cuál es la ruta adecuada para tu delegación?
+                {language === 'en' 
+                  ? 'Not sure which pathway is right for your delegation?' 
+                  : '¿No estás seguro de cuál es la ruta adecuada para tu delegación?'}
               </h4>
               <p className="text-slate-300 text-xs sm:text-sm mt-0.5">
-                En 20 minutos analizamos tus prioridades y te pre-armamos una propuesta de agenda sin costo.
+                {language === 'en'
+                  ? 'In 20 minutes we analyze your priorities and draft a preliminary agenda at no cost.'
+                  : 'En 20 minutos analizamos tus prioridades y te pre-armamos una propuesta de agenda sin costo.'}
               </p>
             </div>
           </div>
@@ -210,7 +180,7 @@ const ProfileSegmentation: React.FC = () => {
             onClick={() => setIsBookingOpen(true)}
             className="px-6 py-3.5 bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold rounded-xl text-sm transition-all whitespace-nowrap shadow-lg shadow-[#0052CC]/30 shrink-0 flex items-center gap-2"
           >
-            <span>Agendar diagnóstico 20 min</span>
+            <span>{language === 'en' ? 'Book 20-min diagnostic' : 'Agendar diagnóstico 20 min'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

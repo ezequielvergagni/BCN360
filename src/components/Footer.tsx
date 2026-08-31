@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Mail, Phone, Linkedin, MapPin, Send, Sparkles, CheckCircle2, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { submitLeadForm } from '../utils/formSubmit';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,18 +21,20 @@ const Footer = () => {
     setIsLoading(true);
     await submitLeadForm({
       formName: 'Formulario de Contacto Footer',
-      subject: `[BCN360] Nuevo Mensaje de Contacto: ${formData.name}`,
+      subject: `[BCN360] Nuevo Mensaje de Contacto (${language.toUpperCase()}): ${formData.name}`,
       replyTo: formData.email,
       data: {
         'Nombre': formData.name,
         'Email': formData.email,
-        'Mensaje': formData.message
+        'Mensaje': formData.message,
+        'Idioma': language.toUpperCase()
       }
     });
 
     setIsLoading(false);
     setIsSubmitted(true);
   };
+
   return (
     <footer id="contacto" className="bg-[#050D1A] text-white relative overflow-hidden">
       {/* High-Tech BCN Brand Blue Accent Line */}
@@ -50,15 +54,15 @@ const Footer = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-6">
               <Sparkles className="w-3.5 h-3.5 text-[#00D2FF]" />
-              <span>Hablemos de tu Misión</span>
+              <span>{t('footer.badge')}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight tracking-tight text-white">
-              Cuéntanos tu idea y te ayudaremos a concretarla
+              {t('footer.title')}
             </h2>
             
             <p className="text-slate-300 mb-10 text-lg leading-relaxed font-normal">
-              Estamos listos para diseñar una experiencia a medida para tu organización o delegación. Conecta con nosotros para empezar a planificar tu inmersión estratégica en Barcelona.
+              {t('footer.subtitle')}
             </p>
             
             <div className="space-y-5">
@@ -70,7 +74,7 @@ const Footer = () => {
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Email Directo</div>
+                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">{t('footer.emailLabel')}</div>
                   <div className="text-base sm:text-lg font-semibold">info@bcn360experience.com</div>
                 </div>
               </a>
@@ -83,7 +87,7 @@ const Footer = () => {
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Atención Telefónica</div>
+                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">{t('footer.phoneLabel')}</div>
                   <div className="text-base sm:text-lg font-semibold">+34 610 691 957</div>
                 </div>
               </a>
@@ -98,7 +102,7 @@ const Footer = () => {
                   <Linkedin className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Comunidad Institucional</div>
+                  <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">{t('footer.linkedinLabel')}</div>
                   <div className="text-base sm:text-lg font-semibold">LinkedIn BCN360 Experience</div>
                 </div>
               </a>
@@ -108,14 +112,16 @@ const Footer = () => {
           {/* Right Column - High-Tech Form */}
           <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 sm:p-10 shadow-2xl border border-white/10 hover:border-[#0052CC]/40 transition-colors">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <span>Formulario de Contacto</span>
+              <span>{t('footer.formTitle')}</span>
               <span className="w-2 h-2 rounded-full bg-[#00D2FF]" />
             </h3>
 
             {!isSubmitted ? (
               <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nombre completo *</label>
+                  <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    {t('footer.nameLabel')} *
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -123,12 +129,14 @@ const Footer = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium"
-                    placeholder="Tu nombre y apellido"
+                    placeholder={t('footer.namePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Correo Corporativo *</label>
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    {t('footer.emailInputLabel')} *
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -141,7 +149,9 @@ const Footer = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Detalles de tu consulta o misión *</label>
+                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    {t('footer.messageLabel')} *
+                  </label>
                   <textarea
                     id="message"
                     required
@@ -149,7 +159,7 @@ const Footer = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white placeholder-slate-500 transition-all text-sm font-medium resize-none"
-                    placeholder="¿En qué fechas prevés tu visita o cuál es el propósito de tu delegación?"
+                    placeholder={t('footer.messagePlaceholder')}
                   ></textarea>
                 </div>
 
@@ -163,11 +173,11 @@ const Footer = () => {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
-                      <span>Enviando mensaje...</span>
+                      <span>{t('footer.sendingBtn')}</span>
                     </>
                   ) : (
                     <>
-                      <span>Enviar Mensaje</span>
+                      <span>{t('footer.sendBtn')}</span>
                       <Send className="w-4 h-4" />
                     </>
                   )}
@@ -178,18 +188,18 @@ const Footer = () => {
                 <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-7 h-7" />
                 </div>
-                <h4 className="text-xl font-bold text-white">¡Mensaje Enviado con Éxito!</h4>
+                <h4 className="text-xl font-bold text-white">{t('footer.successTitle')}</h4>
                 <p className="text-slate-300 text-sm">
-                  Gracias por contactarnos. Hemos recibido tus datos y te responderemos a la brevedad a <strong className="text-white">{formData.email}</strong>.
+                  {t('footer.successDesc')} <strong className="text-white">{formData.email}</strong>.
                 </p>
                 <button
                   onClick={() => {
                     setIsSubmitted(false);
                     setFormData({ name: '', email: '', message: '' });
                   }}
-                  className="px-5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition-all"
+                  className="px-5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition-all cursor-pointer"
                 >
-                  Enviar otro mensaje
+                  {t('footer.sendAnother')}
                 </button>
               </div>
             )}
@@ -205,7 +215,7 @@ const Footer = () => {
           </div>
 
           <p>
-            © {new Date().getFullYear()} BCN360 Experience. Todos los derechos reservados.
+            {t('footer.rights')}
           </p>
         </div>
       </div>

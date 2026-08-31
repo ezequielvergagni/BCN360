@@ -3,10 +3,12 @@ import { motion } from 'motion/react';
 import { ArrowRight, Compass } from 'lucide-react';
 import { BookingModal } from './BookingModal';
 import { ProposalModal } from './ProposalModal';
+import { useLanguage } from '../context/LanguageContext';
 
 const Hero: React.FC = () => {
   const [isBookingOpen, setIsBookingOpen] = useState<boolean>(false);
   const [isProposalOpen, setIsProposalOpen] = useState<boolean>(false);
+  const { t } = useLanguage();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -35,7 +37,7 @@ const Hero: React.FC = () => {
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[350px] bg-[#00D2FF]/15 rounded-full blur-[100px] pointer-events-none" />
         </div>
 
-        {/* Decorative Subtle Lateral Accent Lines (as seen in screenshot) */}
+        {/* Decorative Subtle Lateral Accent Lines */}
         <div className="absolute left-10 md:left-24 top-1/2 -translate-y-1/2 w-[1px] h-32 bg-gradient-to-b from-transparent via-[#00D2FF]/40 to-transparent pointer-events-none hidden lg:block" />
         <div className="absolute right-10 md:right-24 bottom-1/4 w-[1px] h-36 bg-gradient-to-b from-transparent via-[#00D2FF]/30 to-transparent pointer-events-none hidden lg:block" />
 
@@ -45,39 +47,39 @@ const Hero: React.FC = () => {
         {/* Main Content Centered */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center my-auto py-10">
           
-          {/* Main Headline with refined, slightly smaller typography */}
+          {/* Main Headline with refined typography */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-3xl sm:text-5xl md:text-[3.5rem] lg:text-[4.15rem] font-extrabold text-white tracking-tight leading-[1.16] max-w-3xl mx-auto drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
           >
-            Conectamos líderes de<br className="hidden sm:inline" />{' '}
-            Latam con la innovación de<br className="hidden sm:inline" />{' '}
+            {t('hero.titleLine1')}<br className="hidden sm:inline" />{' '}
+            {t('hero.titleLine2')}<br className="hidden sm:inline" />{' '}
             <span className="text-[#00D2FF] drop-shadow-[0_0_25px_rgba(0,210,255,0.5)]">
-              Barcelona.
+              {t('hero.titleHighlight')}
             </span>
           </motion.h1>
 
-          {/* Action Buttons exact to screenshot */}
+          {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mt-10 sm:mt-12 w-full sm:w-auto"
           >
-            {/* Primary Blue Button: "Empieza tu viaje ->" */}
+            {/* Primary Blue Button */}
             <motion.button
               whileHover={{ scale: 1.04, boxShadow: '0 0 35px rgba(0,102,255,0.6)' }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setIsBookingOpen(true)}
-              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#0055D4] hover:bg-[#0062EA] text-white font-bold rounded-full transition-all shadow-[0_8px_25px_rgba(0,85,212,0.45)] flex items-center justify-center gap-2.5 text-base sm:text-lg group border border-blue-400/20"
+              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#0052CC] hover:bg-[#0062EA] text-white font-bold rounded-full transition-all shadow-[0_8px_25px_rgba(0,85,212,0.45)] flex items-center justify-center gap-2.5 text-base sm:text-lg group border border-blue-400/20"
             >
-              <span>Empieza tu viaje</span>
+              <span>{t('hero.ctaPrimary')}</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.button>
 
-            {/* Secondary Dark/Translucent Button: "Explorar Enfoque" with Compass icon */}
+            {/* Secondary Dark/Translucent Button */}
             <motion.button
               whileHover={{ scale: 1.04, backgroundColor: 'rgba(30, 41, 59, 0.85)', borderColor: 'rgba(0, 210, 255, 0.5)' }}
               whileTap={{ scale: 0.98 }}
@@ -85,19 +87,19 @@ const Hero: React.FC = () => {
               className="w-full sm:w-auto px-7 py-3.5 sm:py-4 bg-[#182338]/80 hover:bg-[#1E2B45] text-white font-medium rounded-full transition-all border border-slate-700/80 backdrop-blur-md flex items-center justify-center gap-2.5 text-base sm:text-lg"
             >
               <Compass className="w-5 h-5 text-[#00D2FF]" />
-              <span>Explorar Enfoque</span>
+              <span>{t('hero.ctaSecondary')}</span>
             </motion.button>
           </motion.div>
 
         </div>
 
-        {/* Scroll Indicator exact to screenshot */}
+        {/* Scroll Indicator */}
         <div className="relative z-10 pb-8 pt-4 flex flex-col items-center">
           <button
             onClick={() => scrollToSection('segmentacion')}
             className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-slate-400/80 hover:text-white uppercase transition-colors flex flex-col items-center gap-2"
           >
-            <span>SCROLL</span>
+            <span>{t('hero.scroll')}</span>
           </button>
         </div>
 

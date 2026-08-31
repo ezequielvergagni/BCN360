@@ -2,35 +2,19 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Building2, Rocket, Cpu, Landmark } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedText';
+import { useLanguage } from '../context/LanguageContext';
 
-const metrics = [
-  { 
-    label: "Universidades & Centros I+D", 
-    count: "15+", 
-    icon: Building2,
-    highlight: true
-  },
-  { 
-    label: "Startups de Alto Impacto", 
-    count: "1900+", 
-    icon: Rocket,
-    highlight: false
-  },
-  { 
-    label: "Hubs Tecnológicos Globales", 
-    count: "100+", 
-    icon: Cpu,
-    highlight: false
-  },
-  { 
-    label: "Venture Capital & Inversión", 
-    count: "€1.5B+", 
-    icon: Landmark,
-    highlight: false
-  },
+const metricConfigs = [
+  { count: "15+", icon: Building2, highlight: true },
+  { count: "1900+", icon: Rocket, highlight: false },
+  { count: "100+", icon: Cpu, highlight: false },
+  { count: "€1.5B+", icon: Landmark, highlight: false },
 ];
 
 const Ecosystem: React.FC = () => {
+  const { t } = useLanguage();
+  const metricsData: any[] = t('ecosystem.metrics') || [];
+
   return (
     <section className="py-24 bg-[#050C1A] text-white relative overflow-hidden">
       {/* Background Ambient Glows */}
@@ -39,7 +23,7 @@ const Ecosystem: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header exact to screenshot */}
+        {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <motion.h2 
             initial={{ opacity: 0, y: 15 }}
@@ -48,9 +32,9 @@ const Ecosystem: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-5"
           >
-            Un ecosistema en constante{' '}
+            {t('ecosystem.title')}{' '}
             <span className="text-[#00D2FF] drop-shadow-[0_0_25px_rgba(0,210,255,0.35)] block sm:inline">
-              expansión
+              {t('ecosystem.highlight')}
             </span>
           </motion.h2>
 
@@ -61,14 +45,18 @@ const Ecosystem: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="text-slate-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-normal"
           >
-            Barcelona se consolida como el hub tecnológico más activo del sur de Europa, atrayendo talento internacional e inversión multinacional.
+            {t('ecosystem.subtitle')}
           </motion.p>
         </div>
 
-        {/* Metric Cards Grid exact to screenshot */}
+        {/* Metric Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {metrics.map((item, index) => {
-            const IconComponent = item.icon;
+          {metricConfigs.map((cfg, index) => {
+            const IconComponent = cfg.icon;
+            const data = metricsData[index] || {};
+            const label = data.label || '';
+            const count = data.count || cfg.count;
+
             return (
               <motion.div
                 key={index}
@@ -78,7 +66,7 @@ const Ecosystem: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -6, borderColor: "rgba(0, 210, 255, 0.6)" }}
                 className={`bg-[#0C1629]/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-8 text-center border transition-all duration-300 relative group overflow-hidden shadow-2xl flex flex-col items-center justify-center min-h-[230px] ${
-                  item.highlight
+                  cfg.highlight
                     ? 'border-[#0091FF] shadow-[0_0_30px_rgba(0,145,255,0.2)]'
                     : 'border-slate-800/80 hover:border-slate-700'
                 }`}
@@ -90,12 +78,12 @@ const Ecosystem: React.FC = () => {
 
                 {/* Number */}
                 <div className="text-4xl sm:text-5xl font-extrabold text-white mb-3 tracking-tight">
-                  <AnimatedCounter target={item.count} className="text-white" />
+                  <AnimatedCounter target={count} className="text-white" />
                 </div>
 
                 {/* Label */}
                 <div className="text-slate-200 font-semibold text-sm sm:text-base">
-                  {item.label}
+                  {label}
                 </div>
               </motion.div>
             );

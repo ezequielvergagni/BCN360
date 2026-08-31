@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Download, BookOpen, CheckCircle2, Sparkles, FileText, Lock, Globe, Building, Mail, User, Loader2 } from 'lucide-react';
-import { AnimatedHeadingWords } from './AnimatedText';
+import { motion } from 'motion/react';
+import { Download, BookOpen, CheckCircle2, FileText, Lock, Globe, Building, Mail, User, Loader2 } from 'lucide-react';
 import { submitLeadForm } from '../utils/formSubmit';
-
-const guideChapters = [
-  "Mapeo de los 15 centros de I+D y clústeres más activos",
-  "Guía de fondos de Venture Capital en Barcelona abiertos a LatAm",
-  "Directorio de programas de soft-landing e incentivos públicos (22@)",
-  "Plantilla de preparación de agenda para misiones ejecutivas"
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const LeadMagnet: React.FC = () => {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
     country: 'Chile',
-    profile: 'Empresa / Corporativo',
+    profile: language === 'en' ? 'Company / Corporate' : 'Empresa / Corporativo',
   });
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const guideChapters: string[] = language === 'en' ? [
+    "Mapping of the 15 most active R&D centers and technology clusters",
+    "Directory of Venture Capital funds in Barcelona open to LatAm startups",
+    "Overview of soft-landing programs and public incentives (22@)",
+    "Agenda planning template for executive innovation missions"
+  ] : [
+    "Mapeo de los 15 centros de I+D y clústeres más activos",
+    "Guía de fondos de Venture Capital en Barcelona abiertos a LatAm",
+    "Directorio de programas de soft-landing e incentivos públicos (22@)",
+    "Plantilla de preparación de agenda para misiones ejecutivas"
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +34,7 @@ const LeadMagnet: React.FC = () => {
 
     await submitLeadForm({
       formName: 'Descarga Guía Ecosistema Barcelona 2026',
-      subject: `[BCN360] Nuevo Lead - Descarga Guía: ${formData.name} (${formData.company || formData.country})`,
+      subject: `[BCN360] Nuevo Lead - Descarga Guía (${language.toUpperCase()}): ${formData.name} (${formData.company || formData.country})`,
       replyTo: formData.email,
       data: {
         'Nombre': formData.name,
@@ -36,6 +42,7 @@ const LeadMagnet: React.FC = () => {
         'Empresa': formData.company,
         'País': formData.country,
         'Perfil': formData.profile,
+        'Idioma': language.toUpperCase(),
         'Recurso Descargado': 'Guía del Ecosistema de Innovación de Barcelona para LatAm (38 págs)'
       }
     });
@@ -66,21 +73,25 @@ const LeadMagnet: React.FC = () => {
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider"
             >
               <BookOpen className="w-3.5 h-3.5 text-[#00D2FF]" />
-              <span>RECURSO ESTRATÉGICO GRATUITO • EDICIÓN 2026</span>
+              <span>{language === 'en' ? 'FREE STRATEGIC RESOURCE • 2026 EDITION' : 'RECURSO ESTRATÉGICO GRATUITO • EDICIÓN 2026'}</span>
             </motion.div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Guía del Ecosistema de Innovación de Barcelona para LatAm
+              {language === 'en' 
+                ? 'Barcelona Innovation Ecosystem Guide for LatAm' 
+                : 'Guía del Ecosistema de Innovación de Barcelona para LatAm'}
             </h2>
 
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-              Descarga el informe completo de 38 páginas preparado por nuestro equipo sobre cómo navegar, conectar y cerrar alianzas estratégicas en el mayor hub de innovación del sur de Europa.
+              {language === 'en'
+                ? 'Download the comprehensive 38-page report prepared by our team on how to navigate, connect, and close strategic partnerships in southern Europe’s largest innovation hub.'
+                : 'Descarga el informe completo de 38 páginas preparado por nuestro equipo sobre cómo navegar, conectar y cerrar alianzas estratégicas en el mayor hub de innovación del sur de Europa.'}
             </p>
 
             {/* Included Content Checklist */}
             <div className="space-y-3 pt-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#00D2FF] block">
-                ¿Qué encontrarás dentro de la guía?
+                {language === 'en' ? 'What will you find inside the guide?' : '¿Qué encontrarás dentro de la guía?'}
               </span>
               {guideChapters.map((ch, i) => (
                 <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
@@ -93,7 +104,11 @@ const LeadMagnet: React.FC = () => {
             {/* Micro Badge */}
             <div className="p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3 text-xs text-slate-300">
               <FileText className="w-5 h-5 text-[#00D2FF] shrink-0" />
-              <span>Formato PDF ejecutivo • 38 páginas • Actualizado con datos y contactos 2026</span>
+              <span>
+                {language === 'en'
+                  ? 'Executive PDF format • 38 pages • Updated with 2026 data & direct contacts'
+                  : 'Formato PDF ejecutivo • 38 páginas • Actualizado con datos y contactos 2026'}
+              </span>
             </div>
           </div>
 
@@ -111,10 +126,12 @@ const LeadMagnet: React.FC = () => {
                 <div>
                   <div className="mb-6">
                     <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-1.5">
-                      Descárgala gratis al instante
+                      {language === 'en' ? 'Instant Free PDF Download' : 'Descárgala gratis al instante'}
                     </h3>
                     <p className="text-slate-300 text-xs sm:text-sm">
-                      Completa tus datos para enviarte el documento y acceder a la versión digital.
+                      {language === 'en'
+                        ? 'Fill in your details to receive the document and access the digital version.'
+                        : 'Completa tus datos para enviarte el documento y acceder a la versión digital.'}
                     </p>
                   </div>
 
@@ -122,7 +139,7 @@ const LeadMagnet: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                          Nombre completo *
+                          {language === 'en' ? 'Full Name *' : 'Nombre completo *'}
                         </label>
                         <div className="relative">
                           <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -131,7 +148,7 @@ const LeadMagnet: React.FC = () => {
                             required
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="Tu nombre"
+                            placeholder={language === 'en' ? 'Your name' : 'Tu nombre'}
                             className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-xs sm:text-sm"
                           />
                         </div>
@@ -139,7 +156,7 @@ const LeadMagnet: React.FC = () => {
 
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                          Email corporativo *
+                          {language === 'en' ? 'Corporate Email *' : 'Email corporativo *'}
                         </label>
                         <div className="relative">
                           <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -158,7 +175,7 @@ const LeadMagnet: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                          Empresa u Organización *
+                          {language === 'en' ? 'Company or Organization *' : 'Empresa u Organización *'}
                         </label>
                         <div className="relative">
                           <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -167,7 +184,7 @@ const LeadMagnet: React.FC = () => {
                             required
                             value={formData.company}
                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                            placeholder="Nombre entidad"
+                            placeholder={language === 'en' ? 'Organization name' : 'Nombre entidad'}
                             className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-xs sm:text-sm"
                           />
                         </div>
@@ -175,7 +192,7 @@ const LeadMagnet: React.FC = () => {
 
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                          País
+                          {language === 'en' ? 'Country' : 'País'}
                         </label>
                         <div className="relative">
                           <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -191,7 +208,7 @@ const LeadMagnet: React.FC = () => {
                             <option value="Perú">🇵🇪 Perú</option>
                             <option value="Uruguay">🇺🇾 Uruguay</option>
                             <option value="Ecuador">🇪🇨 Ecuador</option>
-                            <option value="Otro">🌎 Otro país</option>
+                            <option value="Otro">{language === 'en' ? '🌎 Other Country' : '🌎 Otro país'}</option>
                           </select>
                         </div>
                       </div>
@@ -199,18 +216,30 @@ const LeadMagnet: React.FC = () => {
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Tipo de perfil
+                        {language === 'en' ? 'Profile Type' : 'Tipo de perfil'}
                       </label>
                       <select
                         value={formData.profile}
                         onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
                         className="w-full px-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-xs sm:text-sm"
                       >
-                        <option value="Empresa / Corporativo">Empresa / Corporativo (Innovación Abierta / Scouting)</option>
-                        <option value="Institución / Gobierno">Institución / Gobierno / Cámara de Comercio</option>
-                        <option value="Startup / Scaleup">Startup / Scaleup (Soft-landing y Expansión)</option>
-                        <option value="Universidad / Centro I+D">Universidad / Centro Tecnológico / I+D</option>
-                        <option value="Fondo de Inversión">Fondo de Inversión / Business Angel</option>
+                        {language === 'en' ? (
+                          <>
+                            <option value="Company / Corporate">Company / Corporate (Open Innovation / Scouting)</option>
+                            <option value="Institution / Government">Institution / Government / Chamber of Commerce</option>
+                            <option value="Startup / Scaleup">Startup / Scaleup (Soft-landing & Expansion)</option>
+                            <option value="University / R&D Center">University / Tech Center / R&D</option>
+                            <option value="Investment Fund">Investment Fund / VC / Business Angel</option>
+                          </>
+                        ) : (
+                          <>
+                            <option value="Empresa / Corporativo">Empresa / Corporativo (Innovación Abierta / Scouting)</option>
+                            <option value="Institución / Gobierno">Institución / Gobierno / Cámara de Comercio</option>
+                            <option value="Startup / Scaleup">Startup / Scaleup (Soft-landing y Expansión)</option>
+                            <option value="Universidad / Centro I+D">Universidad / Centro Tecnológico / I+D</option>
+                            <option value="Fondo de Inversión">Fondo de Inversión / Business Angel</option>
+                          </>
+                        )}
                       </select>
                     </div>
 
@@ -223,12 +252,12 @@ const LeadMagnet: React.FC = () => {
                         {isLoading ? (
                           <>
                             <Loader2 className="w-5 h-5 animate-spin text-[#00D2FF]" />
-                            <span>Generando tu acceso seguro...</span>
+                            <span>{language === 'en' ? 'Generating secure access...' : 'Generando tu acceso seguro...'}</span>
                           </>
                         ) : (
                           <>
                             <Download className="w-5 h-5 text-[#00D2FF] group-hover:translate-y-0.5 transition-transform" />
-                            <span>Descargar Guía Estratégica (PDF Gratis)</span>
+                            <span>{language === 'en' ? 'Download Strategic Guide (Free PDF)' : 'Descargar Guía Estratégica (PDF Gratis)'}</span>
                           </>
                         )}
                       </button>
@@ -236,7 +265,7 @@ const LeadMagnet: React.FC = () => {
 
                     <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center mt-2">
                       <Lock className="w-3 h-3 text-[#00D2FF]" />
-                      <span>Tus datos están 100% protegidos. No enviamos spam.</span>
+                      <span>{language === 'en' ? 'Your data is 100% confidential. No spam.' : 'Tus datos están 100% protegidos. No enviamos spam.'}</span>
                     </div>
                   </form>
                 </div>
@@ -246,23 +275,25 @@ const LeadMagnet: React.FC = () => {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-extrabold text-white mb-2">
-                    ¡Guía enviada a tu correo!
+                    {language === 'en' ? 'Guide Sent to Your Inbox!' : '¡Guía enviada a tu correo!'}
                   </h3>
                   <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
-                    Hemos enviado la copia a <strong className="text-white">{formData.email}</strong>. También puedes leer los artículos clave directamente en nuestro blog.
+                    {language === 'en' 
+                      ? <>We have sent a copy to <strong className="text-white">{formData.email}</strong>. You can also explore key insights on our blog.</>
+                      : <>Hemos enviado la copia a <strong className="text-white">{formData.email}</strong>. También puedes leer los artículos clave directamente en nuestro blog.</>}
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-3">
                     <a
                       href="/blog"
                       className="px-6 py-3 bg-[#0052CC] hover:bg-[#0042A3] text-white font-bold rounded-xl text-xs sm:text-sm transition-all"
                     >
-                      Explorar artículos del Blog
+                      {language === 'en' ? 'Explore Blog Articles' : 'Explorar artículos del Blog'}
                     </a>
                     <button
                       onClick={() => setIsDownloaded(false)}
-                      className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-xs sm:text-sm transition-all"
+                      className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-xs sm:text-sm transition-all cursor-pointer"
                     >
-                      Descargar otra copia
+                      {language === 'en' ? 'Download Another Copy' : 'Descargar otra copia'}
                     </button>
                   </div>
                 </div>

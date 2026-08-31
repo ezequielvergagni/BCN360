@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FileText, Send, Building, Mail, User, Globe, Users, Calendar, CheckCircle2, X, Loader2 } from 'lucide-react';
 import { submitLeadForm } from '../utils/formSubmit';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ProposalModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface ProposalModalProps {
 }
 
 export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, defaultProfile = 'Empresa' }) => {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,7 +31,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
 
     await submitLeadForm({
       formName: 'Solicitud de Propuesta Personalizada',
-      subject: `[BCN360] Nueva Propuesta Solicitada: ${formData.company || formData.name} (${formData.country})`,
+      subject: `[BCN360] Nueva Propuesta Solicitada (${language.toUpperCase()}): ${formData.company || formData.name} (${formData.country})`,
       replyTo: formData.email,
       data: {
         'Responsable': formData.name,
@@ -40,6 +42,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
         'Tamaño de Delegación': formData.delegationSize,
         'Ventana de Tiempo': formData.expectedQuarter,
         'Detalles y Foco Sectorial': formData.details || 'No especificado',
+        'Idioma': language.toUpperCase()
       }
     });
 
@@ -79,7 +82,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors"
+              className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -90,13 +93,13 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0052CC]/30 border border-[#00D2FF]/40 text-[#00D2FF] text-xs font-bold uppercase tracking-wider mb-2">
                     <FileText className="w-3.5 h-3.5" />
-                    <span>Inmersión a Medida</span>
+                    <span>{t('proposalModal.badge')}</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Solicita una propuesta personalizada
+                    {t('proposalModal.title')}
                   </h3>
                   <p className="text-slate-300 text-sm mt-1">
-                    Diseñamos programas llave en mano adaptados al tamaño de tu delegación, sector específico y cronograma de viaje.
+                    {t('proposalModal.subtitle')}
                   </p>
                 </div>
 
@@ -105,7 +108,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Nombre del responsable *
+                        {t('proposalModal.nameLabel')} *
                       </label>
                       <div className="relative">
                         <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -114,7 +117,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Tu nombre completo"
+                          placeholder={t('proposalModal.namePlaceholder')}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         />
                       </div>
@@ -122,7 +125,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Email institucional / corporativo *
+                        {t('proposalModal.emailLabel')} *
                       </label>
                       <div className="relative">
                         <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -141,7 +144,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Organización / Entidad *
+                        {t('proposalModal.companyLabel')} *
                       </label>
                       <div className="relative">
                         <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -150,7 +153,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                           required
                           value={formData.company}
                           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          placeholder="Nombre de la empresa o institución"
+                          placeholder={t('proposalModal.companyPlaceholder')}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         />
                       </div>
@@ -158,7 +161,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        País de origen
+                        {t('proposalModal.countryLabel')}
                       </label>
                       <div className="relative">
                         <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -174,7 +177,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                           <option value="Perú">🇵🇪 Perú</option>
                           <option value="Uruguay">🇺🇾 Uruguay</option>
                           <option value="Ecuador">🇪🇨 Ecuador</option>
-                          <option value="Otro">🌎 Otro país LatAm</option>
+                          <option value="Otro">{language === 'en' ? '🌎 Other LatAm / International' : '🌎 Otro país LatAm'}</option>
                         </select>
                       </div>
                     </div>
@@ -183,7 +186,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Tamaño estimado de delegación
+                        {t('proposalModal.delegationSizeLabel')}
                       </label>
                       <div className="relative">
                         <Users className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -192,17 +195,28 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                           onChange={(e) => setFormData({ ...formData, delegationSize: e.target.value })}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         >
-                          <option value="1-3 personas (Ejecutivo individual/socios)">1-3 personas (Directivos)</option>
-                          <option value="4-8 personas (Comité de innovación)">4-8 personas (Comité)</option>
-                          <option value="9-15 personas (Delegación gremial/institucional)">9-15 personas (Delegación)</option>
-                          <option value="Más de 15 personas (Misión masiva)">Más de 15 personas (Misión)</option>
+                          {language === 'en' ? (
+                            <>
+                              <option value="1-3 personas (Directivos)">1-3 people (Executives)</option>
+                              <option value="4-8 personas (Comité)">4-8 people (Innovation Committee)</option>
+                              <option value="9-15 personas (Delegación)">9-15 people (Trade Delegation)</option>
+                              <option value="Más de 15 personas (Misión)">More than 15 people (Large Mission)</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="1-3 personas (Directivos)">1-3 personas (Directivos)</option>
+                              <option value="4-8 personas (Comité)">4-8 personas (Comité)</option>
+                              <option value="9-15 personas (Delegación)">9-15 personas (Delegación)</option>
+                              <option value="Más de 15 personas (Misión)">Más de 15 personas (Misión)</option>
+                            </>
+                          )}
                         </select>
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Ventana de tiempo prevista
+                        {t('proposalModal.timeframeLabel')}
                       </label>
                       <div className="relative">
                         <Calendar className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -211,11 +225,23 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                           onChange={(e) => setFormData({ ...formData, expectedQuarter: e.target.value })}
                           className="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm"
                         >
-                          <option value="Q3 2026 (Septiembre - Noviembre)">Q3 2026 (Septiembre - Noviembre)</option>
-                          <option value="Q4 2026 (Diciembre)">Q4 2026 (Diciembre)</option>
-                          <option value="Q1 2027 (Enero - Marzo)">Q1 2027 (Enero - Marzo)</option>
-                          <option value="Q2 2027 (Abril - Junio)">Q2 2027 (Abril - Junio)</option>
-                          <option value="Fechas flexibles por definir">Fechas flexibles por definir</option>
+                          {language === 'en' ? (
+                            <>
+                              <option value="Q3 2026 (Septiembre - Noviembre)">Q3 2026 (September - November)</option>
+                              <option value="Q4 2026 (Diciembre)">Q4 2026 (December)</option>
+                              <option value="Q1 2027 (Enero - Marzo)">Q1 2027 (January - March)</option>
+                              <option value="Q2 2027 (Abril - Junio)">Q2 2027 (April - June)</option>
+                              <option value="Fechas flexibles por definir">Flexible / To be defined</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="Q3 2026 (Septiembre - Noviembre)">Q3 2026 (Septiembre - Noviembre)</option>
+                              <option value="Q4 2026 (Diciembre)">Q4 2026 (Diciembre)</option>
+                              <option value="Q1 2027 (Enero - Marzo)">Q1 2027 (Enero - Marzo)</option>
+                              <option value="Q2 2027 (Abril - Junio)">Q2 2027 (Abril - Junio)</option>
+                              <option value="Fechas flexibles por definir">Fechas flexibles por definir</option>
+                            </>
+                          )}
                         </select>
                       </div>
                     </div>
@@ -223,13 +249,13 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                      Foco sectorial y necesidades específicas
+                      {t('proposalModal.focusLabel')}
                     </label>
                     <textarea
                       rows={3}
                       value={formData.details}
                       onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-                      placeholder="Cuéntanos el sector (Fintech, Health, Biotech, Smart Cities, Clima, etc.) y qué tipos de reuniones o visitas te interesan."
+                      placeholder={t('proposalModal.focusPlaceholder')}
                       className="w-full px-4 py-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl focus:ring-2 focus:ring-[#0052CC] focus:border-[#00D2FF] text-white text-sm resize-none"
                     />
                   </div>
@@ -238,24 +264,24 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-[#0052CC] hover:bg-[#0042A3] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group"
+                      className="w-full bg-[#0052CC] hover:bg-[#0042A3] disabled:opacity-75 disabled:cursor-not-allowed text-white font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-[#0052CC]/40 flex items-center justify-center gap-2 text-base group cursor-pointer"
                     >
                       {isLoading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin text-[#00D2FF]" />
-                          <span>Procesando requerimiento...</span>
+                          <span>{t('proposalModal.submittingBtn')}</span>
                         </>
                       ) : (
                         <>
                           <Send className="w-4 h-4 text-[#00D2FF] group-hover:translate-x-1 transition-transform" />
-                          <span>Solicitar Propuesta y Presupuesto Detallado</span>
+                          <span>{t('proposalModal.submitBtn')}</span>
                         </>
                       )}
                     </button>
                   </div>
 
                   <p className="text-center text-[11px] text-slate-400 mt-2">
-                    Recibirás una propuesta técnica y económica personalizada en un plazo máximo de 48 horas.
+                    {t('proposalModal.disclaimer')}
                   </p>
                 </form>
               </div>
@@ -265,16 +291,16 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, d
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-extrabold text-white mb-2">
-                  ¡Propuesta en Preparación!
+                  {t('proposalModal.successTitle')}
                 </h3>
                 <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
-                  Hemos registrado los requerimientos de <strong className="text-white">{formData.company}</strong>. Nuestro equipo de diseño de programas se pondrá en contacto a <strong className="text-white">{formData.email}</strong> con una propuesta técnica a medida.
+                  {t('proposalModal.successDesc')} <strong className="text-white">{formData.company}</strong>. {t('proposalModal.successDesc2')} <strong className="text-white">{formData.email}</strong>.
                 </p>
                 <button
                   onClick={resetForm}
-                  className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-sm transition-colors"
+                  className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-sm transition-colors cursor-pointer"
                 >
-                  Cerrar ventana
+                  {t('proposalModal.closeBtn')}
                 </button>
               </div>
             )}

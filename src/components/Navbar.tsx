@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Calendar, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookingModal } from './BookingModal';
+import { LanguageToggle } from './LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +12,7 @@ const Navbar = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,13 +31,13 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Inicio', href: isHome ? '#inicio' : '/' },
-    { name: 'Servicios', href: isHome ? '#servicios' : '/#servicios' },
-    { name: 'Enfoque', href: isHome ? '#enfoque' : '/#enfoque' },
-    { name: 'Ecosistema', href: isHome ? '#ecosistema' : '/#ecosistema' },
-    { name: 'Testimonios', href: isHome ? '#testimonios' : '/#testimonios' },
-    { name: 'Equipo', href: isHome ? '#equipo' : '/#equipo' },
-    { name: 'Blog', href: '/blog', isRoute: true },
+    { name: t('nav.home'), href: isHome ? '#inicio' : '/' },
+    { name: t('nav.services'), href: isHome ? '#servicios' : '/#servicios' },
+    { name: t('nav.approach'), href: isHome ? '#enfoque' : '/#enfoque' },
+    { name: t('nav.ecosystem'), href: isHome ? '#ecosistema' : '/#ecosistema' },
+    { name: t('nav.testimonials'), href: isHome ? '#testimonios' : '/#testimonios' },
+    { name: t('nav.team'), href: isHome ? '#equipo' : '/#equipo' },
+    { name: t('nav.blog'), href: '/blog', isRoute: true },
   ];
 
   return (
@@ -70,7 +73,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.href}
-                    className="relative text-slate-800 hover:text-[#0052CC] px-3.5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:bg-blue-50/80"
+                    className="relative text-slate-800 hover:text-[#0052CC] px-3 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:bg-blue-50/80"
                   >
                     {link.name}
                   </Link>
@@ -78,31 +81,38 @@ const Navbar = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    className="relative text-slate-800 hover:text-[#0052CC] px-3.5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:bg-blue-50/80"
+                    className="relative text-slate-800 hover:text-[#0052CC] px-3 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:bg-blue-50/80"
                   >
                     {link.name}
                   </a>
                 )
               ))}
+
+              {/* Language Switcher Button in Navbar Right */}
+              <div className="ml-1 mr-1">
+                <LanguageToggle variant="navbar" />
+              </div>
               
               <motion.button 
                 whileHover={{ scale: 1.04, boxShadow: "0 0 20px rgba(0,82,204,0.4)" }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setIsBookingOpen(true)}
-                className="ml-3 bg-[#0052CC] text-white hover:bg-[#0042A3] px-5 py-2.5 rounded-full text-sm font-extrabold transition-all shadow-md shadow-blue-600/25 flex items-center gap-2"
+                className="ml-2 bg-[#0052CC] text-white hover:bg-[#0042A3] px-4 lg:px-5 py-2.5 rounded-full text-sm font-extrabold transition-all shadow-md shadow-blue-600/25 flex items-center gap-2"
               >
                 <Calendar className="w-4 h-4 text-[#00D2FF]" />
-                <span>Agendar Llamada</span>
+                <span>{t('nav.bookCall')}</span>
               </motion.button>
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center gap-2">
+              <LanguageToggle variant="navbar" />
               <button
                 onClick={toggleMenu}
+                aria-label={t('nav.openMenu')}
                 className="inline-flex items-center justify-center p-2 rounded-xl text-slate-800 hover:text-[#0052CC] hover:bg-blue-50 focus:outline-none"
               >
-                <span className="sr-only">Open main menu</span>
+                <span className="sr-only">{t('nav.openMenu')}</span>
                 {isOpen ? <X className="block h-7 w-7" /> : <Menu className="block h-7 w-7" />}
               </button>
             </div>
@@ -140,15 +150,20 @@ const Navbar = () => {
                     </a>
                   )
                 ))}
+
+                <div className="pt-2">
+                  <LanguageToggle variant="mobile" />
+                </div>
+
                 <button 
                   onClick={() => {
                     setIsOpen(false);
                     setIsBookingOpen(true);
                   }}
-                  className="w-full py-3.5 px-4 rounded-xl text-base font-extrabold text-white bg-[#0052CC] hover:bg-[#0042A3] mt-4 text-center shadow-md shadow-blue-600/20 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-4 rounded-xl text-base font-extrabold text-white bg-[#0052CC] hover:bg-[#0042A3] mt-3 text-center shadow-md shadow-blue-600/20 flex items-center justify-center gap-2"
                 >
                   <Calendar className="w-4 h-4 text-[#00D2FF]" />
-                  <span>Agendar Llamada (20 min)</span>
+                  <span>{t('nav.bookCallMobile')}</span>
                 </button>
               </div>
             </motion.div>
